@@ -2,6 +2,9 @@
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
 
+include_once __DIR__.'/../src/dao/CategorieDAO.php';
+include_once __DIR__.'/../src/dao/NomineDAO.php';
+include_once __DIR__.'/../src/dao/UtilisateurDAO.php';
 
 // Register global error and exception handlers
 ErrorHandler::register();
@@ -12,10 +15,10 @@ $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
-$app['twig'] = $app->share($app->extend('twig', function(Twig_Environment $twig, $app) {
+/*$app['twig'] = $app->share($app->extend('twig', function(Twig_Environment $twig, $app) {
     $twig->addExtension(new Twig_Extensions_Extension_Text());
     return $twig;
-}));
+}));*/
 $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
@@ -31,11 +34,28 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
                 'login_path' => '/login', 
                 'check_path' => '/login_check'),
             'users' => $app->share(function () use ($app) {
-                return new UserDAO($app['db']);
+                return new G_I_A\DAO\UtilisateurDAO($app['db']);
             }),
         ),
     ),
     'security.role_hierarchy' => array('ROLE_ADMIN' => array('ROLE_USER')),
     'security.access_rule' => array(array('^/admin', 'ROLE_ADMIN'))
 ));
+
+
+
+// Register services
+$app['dao.categorie'] = $app->share(function ($app) {
+return new G_I_A\DAO\CategorieDAO($app['db']);
+});
+$app['dao.nomine'] = $app->share(function ($app) {
+return new G_I_A\DAO\NomineDAO($app['db']);
+});  
+$app['dao.utilisateur'] = $app->share(function ($app) {
+return new G_I_A\DAO\UtilisateurDAO($app['db']);
+});  
+
+//Globals variables
+global $categorieDAO;
+$categorieDAO = new G_I_A\DAO\CategorieDAO($app['db']);
 

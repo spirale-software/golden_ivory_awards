@@ -1,0 +1,40 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Tableau de bord Administratrice{% endblock %}
+
+{% block content %}
+    <div class="">
+        <div class="row">
+            <div>
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a href="{{path('categorie_admin_board')}}">
+                            Catégories</a>
+                    </li>
+                    <li role="presentation"><a href="{{path('nomine_add')}}">Nominés</a></li>
+                    <li role="presentation"><a href="#">Actualités Pays</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Id</th>
+                        <th>libelle categorie</th> 
+                    </tr>
+                    {% for categorie in categories %}
+                        <tr>
+                            <td>{{categorie.id}}</td>
+                            <td>{{categorie.libelle}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
