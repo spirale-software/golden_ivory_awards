@@ -1,0 +1,28 @@
+
+h3 {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+div .well {
+    min-height: 250px;
+}
+
+.header {
+    text-align: center;
+}
+
+.container-admin-layout {
+    width: 70%;
+}
+
+
+#side-bar {
+    height: 250px;
+    border-radius: 7px;  
+}
+
+#categorie_form {
+   padding-top: 10%;
+}

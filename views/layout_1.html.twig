@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/css/microcms.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/css/layout.css" rel="stylesheet">
+        <title>MicroCMS - {% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <div style="overflow: hidden">
+
+            <!-- [NAV]
+                =================================================================-->
+            <nav class="navbar navbar-default navbar-fixed-top navbar-inverse nav-style" role="navigation">
+                <div class="container-fluid container-style">
+                    <div class="navbar-header header-style">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <a class="navbar-brand" href="{{ path('home') }}">
+                            <span><img src="{{ app.request.basepath }}/../images/cote_ivoire.png" width="50"></span>
+                            Golden Ivory Awards
+                        </a>
+                    </div>
+
+                    <!-- [MENU BUTTON]
+                        =====================================================-->
+                    <div class="btn-nav-style">
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="active"><a href="#">Accueil</a></li>
+                            <li role="presentation"><a href="#">Partenaires</a></li>
+                            <li role="presentation"><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- [/MENU BUTTON]
+                        =====================================================-->
+                </div>
+            </nav>
+            <!--[/NAV]
+                =================================================================-->
+
+            <!--[CONTENT]
+                =================================================================-->
+            <div id="content" class="">{% block content %}{% endblock %}</div>
+            <!--[/CONTENT]
+                =================================================================-->
+
+            <!--[FOOTER]
+                =================================================================-->
+            <footer>
+
+                <div class="row" style="background-color: #66757F">
+                    <div class="col-md-3">
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="page-header">
+                            <h2>Contact</h2>
+                        </div>
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Prénom"><br>
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email"><br>
+                                <textarea class="form-control" rows="3" placeholder="Message"></textarea> <br>
+                                <button type="submit" class="btn btn-default">Envoyer</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-3">
+                    </div>
+
+
+                </div>
+
+
+                <div id="footer" >
+                    <div class="row">
+                        <div class="col-md-4" style="color:#ffffff">col-md-1</div>
+                        <div class="col-md-4" style="color:#ffffff">col-md-1</div>
+                        <div class="col-md-4"><a href="{{ path('admin_board') }}">admin</a></div>
+                    </div>
+                </div>
+            </footer>
+            <!--[/FOOTER]
+                =================================================================-->
+
+        </div>
+
+        <!-- jQuery -->
+        <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
+        <!-- JavaScript Boostrap plugin -->
+        <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>

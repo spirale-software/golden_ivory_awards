@@ -5,6 +5,7 @@ namespace G_I_A\DAO;
 include_once __DIR__ . '/../domain/Nomine.php';
 include_once __DIR__ . '/DAO.php';
 include_once __DIR__ . '/../exception/DAOException.php';
+include_once __DIR__ . '/CategorieDAO.php';
 
 /**
  * @OVERVIEW: NomineDAO représente le Data Access Objet(DAO) utilisé pour 
@@ -15,14 +16,14 @@ class NomineDAO extends DAO {
     /**
      * Insert the variable $nomine in the DB.
      *
-     * @param Nomine $nomine. The nomine to insert in the DB.
+     * @param Nomine $nomine . The nomine to insert in the DB.
      *
      * @return an exception if there is any problem with the insertion.
      */
     public function save($nomine) {
         $nomine_to_insert = array(
             'nom' => $nomine->getNom(),
-            'categorie_nomine' => $nomine->getCategorie(),
+            'categorie_nomine' => $nomine->getCategorieID(),
             'descriptif' => $nomine->getDescriptif(),
             'actualite' => $nomine->getActualite());
         try {
@@ -64,7 +65,7 @@ class NomineDAO extends DAO {
 
         $nomineData = array(
             'nom' => $nomine->getNom(),
-            'categorie_nomine' => $nomine->getCategorie(),
+            'categorie_nomine' => $nomine->getCategorieID(),
             'descriptif' => $nomine->getDescriptif(),
             'actualite' => $nomine->getActualite());
 
@@ -129,10 +130,10 @@ class NomineDAO extends DAO {
      */
     protected function buildDomainObject($row) {
         $nomine = new \G_I_A\Domain\Nomine();
-
+ 
         $nomine->setId($row['id_nomine']);
         $nomine->setNom($row['nom']);
-        $nomine->setCategorie($row['categorie_nomine']);
+        $nomine->setCategorieID($row['categorie_nomine']); 
         $nomine->setDescriptif($row['descriptif']);
         $nomine->setActualite($row['actualite']);
 

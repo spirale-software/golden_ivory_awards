@@ -5,99 +5,112 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="{{ app.request.basepath }}/css/microcms.css" rel="stylesheet">
-        <link href="{{ app.request.basepath }}/css/layout.css" rel="stylesheet">
+        {#<link href="{{ app.request.basepath }}/css/layout.css" rel="stylesheet">#}
         <title>MicroCMS - {% block title %}{% endblock %}</title>
-    </head>
-    <body>
-        <div style="overflow: hidden">
 
-            <!-- [NAV]
-                =================================================================-->
-            <nav class="navbar navbar-default navbar-fixed-top navbar-inverse nav-style" role="navigation">
-                <div class="container-fluid container-style">
-                    <div class="navbar-header header-style">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
+        <!--[Style]
+            =================================================================-->
+        <style type="text/css">
+            body {
+                background-image: url({{ app.request.basepath }}/../images/oscar.jpg);
+                background-repeat:no-repeat ;
+                background-size:cover  ;
+            }
+
+            nav {
+                margin-top: 15px;
+                opacity: 0.9;
+            }
+
+            li {
+                color: white;
+                padding-left: 10px;
+                margin-top: 10px
+            }
+            a {
+                color: white;
+            }
+
+            .container-style {
+                width: 70%;
+            }
+
+            .carrousel-style {
+                height: 400px;
+
+
+            }
+
+            .caption-style {
+                padding-bottom: 170px;
+            }
+
+            .thumbail-style {
+                opacity: 0.8;
+
+            }
+
+            #footer {
+                background:#292F33;
+                width:100%;
+                height:100px;
+                position:relative;
+                bottom:0;
+                left:0;
+            }
+        </style>
+        <!--[/Style]
+            =====================================================================-->
+
+    </head>
+    <body> 
+        <div class="container container-style">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-
-                        <a class="navbar-brand" href="{{ path('home') }}">
-                            <span><img src="{{ app.request.basepath }}/../images/cote_ivoire.png" width="50"></span>
-                            Golden Ivory Awards
-                        </a>
+                        <a class="navbar-brand" href="#">Golden Ivory Awards</a>
                     </div>
 
-                    <!-- [MENU BUTTON]
-                        =====================================================-->
-                    <div class="btn-nav-style">
-                        <ul class="nav nav-pills">
-                            <li role="presentation" class="active"><a href="#">Accueil</a></li>
-                            <li role="presentation"><a href="#">Partenaires</a></li>
-                            <li role="presentation"><a href="#">Contact</a></li>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">Accueil</a></li>
+                            <li><a href="#">Qui sommes nous?</a></li>
+                            <li><a href="#">Partenaires</a></li>
+                            <li><a href="#">Conatct</a></li>
                         </ul>
-                    </div>
-                    <!-- [/MENU BUTTON]
-                        =====================================================-->
-                </div>
+
+
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
             </nav>
-            <!--[/NAV]
-                =================================================================-->
 
-            <!--[CONTENT]
-                =================================================================-->
-            <div id="content" class="">{% block content %}{% endblock %}</div>
-            <!--[/CONTENT]
-                =================================================================-->
-
-            <!--[FOOTER]
-                =================================================================-->
-            <footer>
-
-                <div class="row" style="background-color: #66757F">
-                    <div class="col-md-3">
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="page-header">
-                            <h2>Contact</h2>
-                        </div>
-
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Prénom"><br>
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email"><br>
-                                <textarea class="form-control" rows="3" placeholder="Message"></textarea> <br>
-                                <button type="submit" class="btn btn-default">Envoyer</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="col-md-3">
-                    </div>
+        {% block content %}{% endblock %}
 
 
-                </div>
 
-
-                <div id="footer" >
-                    <div class="row">
-                        <div class="col-md-4" style="color:#ffffff">col-md-1</div>
-                        <div class="col-md-4" style="color:#ffffff">col-md-1</div>
-                        <div class="col-md-4"><a href="{{ path('admin_board') }}">admin</a></div>
-                    </div>
-                </div>
-            </footer>
-            <!--[/FOOTER]
-                =================================================================-->
+    </div>
+    <footer>
+        <div class="row" id="footer">
+            <div class="col-md-4" style="text-align: center">
+                <a href="{{ path('nomine_all') }}">admin</a>
+            </div>
+            
 
         </div>
 
-        <!-- jQuery -->
-        <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
-        <!-- JavaScript Boostrap plugin -->
-        <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
-    </body>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
+    <!-- JavaScript Boostrap plugin -->
+    <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
 </html>

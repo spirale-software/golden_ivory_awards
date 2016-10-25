@@ -1,32 +1,27 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="{{ app.request.basepath }}/css/microcms.css" rel="stylesheet">
-        <title> All Categories</title>
-    </head>
-    <body>
-        <div class="container">
-            <table class="table table-striped">
-                <tr>
-                    <th>Id</th>
-                    <th>libelle categorie</th> 
-                </tr>
-                {% for categorie in categories %}
-                    <tr>
-                        <td>{{categorie.id}}</td>
-                        <td>{{categorie.libelle}}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
+{% extends "admin_layout.html.twig" %}
 
-        <!-- jQuery -->
-        <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
-        <!-- JavaScript Boostrap plugin -->
-        <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
-    </body>
-</html>
+{% block admin_title %} Toutes les Catégories {% endblock %}
+
+{% block content %}
+    <div class="well">
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>libelle categorie</th> 
+                <th> </th> 
+            </tr>
+            {% for categorie in categories %}
+                <tr>
+                    <td>{{categorie.id}}</td>
+                    <td>{{categorie.libelle}}</td>
+                    <td>
+                        <a href = "{{ path('categorie_edit', {'id':categorie.id}) }}">
+                            <button class="btn btn-warning" type="button">Modifier</button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

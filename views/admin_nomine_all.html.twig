@@ -1,0 +1,37 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block admin_title %} Gestion des Nomines {% endblock %}
+
+{% block content %}
+
+    <div class="well">
+        <table class="table table-striped">
+            <tr>
+                <th>Numéro</th>
+                <th>Prenom</th> 
+                <th>Catégorie</th>
+                <th> </th>
+            </tr>
+
+            {% for nomine in nomines%}
+                <tr>
+                    <td>{{nomine.id}}</td>
+                    <td>{{nomine.nom}}</td>
+                    <td>{{nomine.libelleCategorie}}</td>
+                    <td> 
+                        <a href= "{{ path('nomine_detail', {'id':nomine.id}) }}">
+                            <button class="btn btn-info" type="button">Détail</button>
+                        </a>
+                        <a href = "{{ path('nomine_edit', {'id':nomine.id}) }}">
+                            <button class="btn btn-warning" type="button">Modifier</button>
+                        </a>
+                        <a href = "{{ path('nomine_delete', {'id':nomine.id})}}" >
+                            <button class="btn btn-danger" type="button">Supprimer</button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+{% endblock %}

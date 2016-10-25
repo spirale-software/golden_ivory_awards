@@ -16,7 +16,7 @@ class NomineType extends AbstractType {
        
         $builder
                 ->add('nom', 'text')
-                ->add('categorie', ChoiceType::class, array(
+                ->add('categorieID', ChoiceType::class, array(
                     'choices' => $this->getArray($GLOBALS['categorieDAO']->findAll())))
                 ->add('descriptif', 'textarea')
                 ->add('actualite', 'textarea');
@@ -26,8 +26,12 @@ class NomineType extends AbstractType {
         
         $array_categories = array();
         foreach ($categories as $categorie) {
+            
             $array_categories[$categorie->getId()] = $categorie->getLibelle();
         }
+        
+       
+        
         return $array_categories;
     }
 

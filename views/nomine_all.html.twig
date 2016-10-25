@@ -1,0 +1,30 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Nominés{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1 style="color:white;">Les candidats pour l'honneur du meilleur chanteur</h1>
+    </div>
+
+    {% for nomine in nomines%}
+
+        <div class="row">
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img src="{{ app.request.basepath }}/../images/img_1.jpg" width="100%">
+                </a>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <h2 style="color: #fff"> {{nomine.nom}} </h2>
+                <p style="color: #fff"> {{nomine.descriptif}} </p>
+            </div>
+
+            <div class="col-xs-6 col-md-3" style="margin-top: 50px">
+                <button class="btn btn-primary center-block">Voter</button>
+            </div>
+        </div>
+            <hr class='divider'>
+    {% endfor %}
+{% endblock %}

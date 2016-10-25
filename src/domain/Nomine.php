@@ -21,11 +21,18 @@ class Nomine {
     private $nom;
     
     /**
-     * catégorie à laquelle appartient le nominé.
+     * id de la catégorie à laquelle appartient le nominé.
      *
-     * @var int
+     * @var inetger
      */
-    private $categorie;
+    private $categorieID;
+    
+    /**
+     * libelle de la catégorie à laquelle appartient le nominé.
+     *
+     * @var string
+     */
+    private $libelleCategorie;
     
     /**
      * texte décrivant le nominé.
@@ -49,10 +56,6 @@ class Nomine {
         return $this->nom;
     }
 
-    function getCategorie() {
-        return $this->categorie;
-    }
-
     function getDescriptif() {
         return $this->descriptif;
     }
@@ -69,16 +72,29 @@ class Nomine {
         $this->nom = $nom;
     }
 
-    function setCategorie($categorie) {
-        $this->categorie = $categorie;
-    }
-
     function setDescriptif($descriptif) {
         $this->descriptif = $descriptif;
     }
 
     function setActualite($actualite) {
         $this->actualite = $actualite;
+    }  
+  
+    public function setLibelleCategorie($libelle) {
+        $this->libelleCategorie = $libelle;
+    } 
+    
+    public function getLibelleCategorie() {
+        return $this->libelleCategorie;
     }
+    
+    function setCategorieID($categorieID) {
+        $this->categorieID = $categorieID;
+    }
+    
+    function getCategorieID() {
+        return $this->categorieID;
+    }
+    
 }
 

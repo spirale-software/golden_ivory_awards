@@ -1,15 +1,11 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="{{ app.request.basepath }}/css/microcms.css" rel="stylesheet">
-        <title> All Categories</title>
-    </head>
-    <body>
-        <div class="container">
+
+{% extends "admin_layout.html.twig" %}
+
+{% block admin_title %} Gestion des Nomines {% endblock %}
+
+{% block content %}
+   
+        <div class="well" id="categorie_form">
             {{ form_start(categorieForm, { 'attr': {'class': 'form-horizontal'} }) }}
             <div class="form-group">
                 {{ form_label(categorieForm.libelle, null, { 'label_attr':  {
@@ -18,24 +14,21 @@
                 <div class="col-sm-6">
                     {{ form_errors(categorieForm.libelle) }}
                     {{ form_widget(categorieForm.libelle, { 'attr':  {
-                'class': 'form-control'
+                'class': 'form-control', 'placeholder':'Entrer Nouvelle Categorie'
                     }}) }}
                 </div>
             </div>
             
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-3">
-                    <input type="submit" class="btn btn-primary" value="Save" />
+                    <input type="submit" class="btn btn-primary" value="{{ action }}" />
                 </div>
             </div>
             {{ form_end(categorieForm) }}
 
         </div>
+            
+{% endblock %}
 
-        <!-- jQuery -->
-        <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
-        <!-- JavaScript Boostrap plugin -->
-        <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
-    </body>
-</html>
+ 
 
