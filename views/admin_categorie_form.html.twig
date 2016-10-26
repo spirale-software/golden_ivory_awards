@@ -6,14 +6,14 @@
 {% block content %}
    
         <div class="well" id="categorie_form">
-            {{ form_start(categorieForm, { 'attr': {'class': 'form-horizontal'} }) }}
+            {{ form_start(categorie_form, { 'attr': {'class': 'form-horizontal'} }) }}
             <div class="form-group">
-                {{ form_label(categorieForm.libelle, null, { 'label_attr':  {
+                {{ form_label(categorie_form.libelle, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
                 }}) }}
                 <div class="col-sm-6">
-                    {{ form_errors(categorieForm.libelle) }}
-                    {{ form_widget(categorieForm.libelle, { 'attr':  {
+                    {{ form_errors(categorie_form.libelle) }}
+                    {{ form_widget(categorie_form.libelle, { 'attr':  {
                 'class': 'form-control', 'placeholder':'Entrer Nouvelle Categorie'
                     }}) }}
                 </div>
@@ -24,7 +24,7 @@
                     <input type="submit" class="btn btn-primary" value="{{ action }}" />
                 </div>
             </div>
-            {{ form_end(categorieForm) }}
+            {{ form_end(categorie_form) }}
 
         </div>
             

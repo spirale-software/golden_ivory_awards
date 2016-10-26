@@ -9,18 +9,19 @@
             {{ flashMessage }}
         </div>
     {% endfor %}
+    
     <div class="well">
-        {{ form_start(nomineForm, { 'attr': {'class': 'form-horizontal'} }) 
+        {{ form_start(nomine_form, { 'attr': {'class': 'form-horizontal'} }) 
         }}
         <!-- Nom
             =============================================================-->
         <div class="form-group">
-            {{ form_label(nomineForm.nom, null, { 'label_attr':  {
+            {{ form_label(nomine_form.nom, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
             }}) }}
             <div class="col-sm-6">
-                {{ form_errors(nomineForm.nom) }}
-                {{ form_widget(nomineForm.nom, { 'attr':  {
+                {{ form_errors(nomine_form.nom) }}
+                {{ form_widget(nomine_form.nom, { 'attr':  {
                 'class': 'form-control'
                 }}) }}
             </div>
@@ -29,13 +30,13 @@
         <!-- liste des categories
         =============================================================-->
         <div class="form-group">
-            {{ form_label(nomineForm.categorieID, null, { 'label_attr':  {
+            {{ form_label(nomine_form.categorieID, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
             }}) }}
 
             <div class="col-sm-6">
-                {{ form_errors(nomineForm.categorieID) }}
-                {{ form_widget(nomineForm.categorieID, { 'attr':  {
+                {{ form_errors(nomine_form.categorieID) }}
+                {{ form_widget(nomine_form.categorieID, { 'attr':  {
                 'class': 'form-control'
                 }}) }}
             </div>
@@ -45,12 +46,12 @@
         <!-- Descriptif
         =============================================================-->
         <div class="form-group">
-            {{ form_label(nomineForm.descriptif, null, { 'label_attr':  {
+            {{ form_label(nomine_form.descriptif, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
             }}) }}
             <div class="col-sm-6">
-                {{ form_errors(nomineForm.descriptif) }}
-                {{ form_widget(nomineForm.descriptif, { 'attr':  {
+                {{ form_errors(nomine_form.descriptif) }}
+                {{ form_widget(nomine_form.descriptif, { 'attr':  {
                     'rows':4,
                     'class': 'form-control'
                 }}) }}
@@ -60,12 +61,12 @@
         <!-- Actualite
         =============================================================-->
         <div class="form-group">
-            {{ form_label(nomineForm.actualite, null, { 'label_attr':  {
+            {{ form_label(nomine_form.actualite, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
             }}) }}
             <div class="col-sm-6">
-                {{ form_errors(nomineForm.actualite) }}
-                {{ form_widget(nomineForm.actualite, { 'attr':  {
+                {{ form_errors(nomine_form.actualite) }}
+                {{ form_widget(nomine_form.actualite, { 'attr':  {
                     'rows':4,
                     'class': 'form-control'
                 }}) }}
@@ -79,7 +80,7 @@
                 <input type="submit" class="btn btn-primary" value="enregistrer" />
             </div>
         </div>
-        {{ form_end(nomineForm) }}
+        {{ form_end(nomine_form) }}
         
          
     </div>

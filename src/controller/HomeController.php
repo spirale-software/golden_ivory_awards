@@ -6,13 +6,17 @@ include_once __DIR__.'/../form/type/categorieType.php';
 
 class HomeController {
     
+    /**
+     * 
+     * @param Application $app
+     * 
+     * @return index.html.twig
+     */
     public function index_action(Application $app) {
         
         return $app['twig']->render('index.html.twig');
     }
      
-    
-    
     /**
      * Show all nomine who are in the DB.
      * 

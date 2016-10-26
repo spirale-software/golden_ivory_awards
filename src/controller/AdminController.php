@@ -14,7 +14,8 @@ class AdminController {
     /**
      * Show all nomine who are in the DB.
      * 
-     * @param Application $app, Request $request
+     * @param Application $app, 
+     * @param Request $request
      *  
      * @return all_nomines.html.twig
      */
@@ -38,15 +39,14 @@ class AdminController {
     }
 
     /**
-     * allow to show detail about a nomine 
+     * allow to show detail about a nomine. 
      * 
      * @param Application $app
-     * @param Request $request
-     * @param int $id
+     * @param int $id : represent the id of the given nomine.
      * 
      * return admin_nomine_detail.html.twig
      */
-    public function detail_nomine_action(Application $app, Request $request, $id) {
+    public function detail_nomine_action(Application $app, $id) {
 
         $_nomine = $app['dao.nomine']->find_nomine_by_ID($id);
         $nomine = array_shift($_nomine);
@@ -66,7 +66,7 @@ class AdminController {
      * 
      * @param Application $app
      * @param Request $request
-     * @param int $id
+     * @param int $id : represent the id of a given nomine.
      * 
      * return admin_nomine_edit.html.twig
      */
@@ -100,54 +100,23 @@ class AdminController {
                     'title' => '',
                     'nomine_form' => $nomine_form_view));
     }
-
-    /**
-     * 
-     * @param Application $app
-     * @param Request $request
-     * @param integer $id
-     */
-    function edit_categorie_action(Application $app, Request $request, $id) {
-        $libelle = $app['dao.categorie']->find_libelle($id);
-
-        $categorie = new \G_I_A\Domain\Categorie();
-        $categorie->setLibelle($libelle['libelle']);
-        $categorie->setId($id);
-        
-        $categorieForm = $app['form.factory']->create(
-                new \G_I_A\Form\Type\CategorieType, $categorie);
-        
-        $categorieForm->handleRequest($request);
-        
-        if ($categorieForm->isSubmitted() && $categorieForm->isValid()) {
-                      
-            $app['dao.categorie']->edit($categorie);
-            
-            $app['session']->getFlashBag()->add(
-                    'success', 'La categorie a été bien modifiée.');
-        }
-        return $app['twig']->render('categorie_form.html.twig', array(
-                    'title' => 'New article',
-                    'categorieForm' => $categorieForm->createView(),
-                    'active' => 0,
-                    'action' => 'Modifier'));
-    }
-
+    
     /**
      * Add a new nomine in the DB
      * 
      * @param Application $app
      * @param Request $request
-     * @return nomine_form.html.twig
+     * 
+     * @return admin_nomine_form.html.twig
      */
     public function add_nomine_action(Application $app, Request $request) {
 
         $nomine = new \G_I_A\Domain\Nomine();
-        $nomineForm = $app['form.factory']->create(
+        $nomine_form = $app['form.factory']->create(
                 new \G_I_A\Form\Type\NomineType, $nomine);
-        $nomineForm->handleRequest($request);
+        $nomine_form->handleRequest($request);
 
-        if ($nomineForm->isSubmitted() && $nomineForm->isValid()) {
+        if ($nomine_form->isSubmitted() && $nomine_form->isValid()) {
 
             $libelle = $app['dao.categorie']->find_libelle(
                     $nomine->getCategorieID());
@@ -159,20 +128,20 @@ class AdminController {
                     'success', 'Le nomine a été bien crée.');
         }
 
-        return $app['twig']->render('nomine_form.html.twig', array(
+        return $app['twig']->render('admin_nomine_form.html.twig', array(
                     'title' => 'New Nomine',
-                    'nomineForm' => $nomineForm->createView(),
+                    'nomine_form' => $nomine_form->createView(),
                     'active' => 2));
     }
-
-    /**
-     * allow to edit a given nomine 
+    
+     /**
+     * allow to delete a given nomine 
      * 
      * @param Application $app
      * @param Request $request
      * @param int $id
      * 
-     * return admin_nomine_edit.html.twig
+     * return $this->all_nomines_action()
      */
     public function delete_nomine_action(Application $app, $id) {
 
@@ -183,19 +152,67 @@ class AdminController {
 
         return $this->all_nomines_action($app);
     }
+    
+/***************************** Categorie **************************************/
 
-    public function getCategories(Application $app) {
-        return $app['dao.categorie']->findAll();
-    }
-
+    /**
+     * Show all the categories which are present in the DB.
+     * 
+     * @param Application $app
+     * 
+     * @return admin_categorie_all.html.twig
+     */
     public function all_categorie_action(Application $app) {
 
         $categories = $app['dao.categorie']->findAll();
-        return $app['twig']->render('all_categories.html.twig', array(
+        return $app['twig']->render('admin_categorie_all.html.twig', array(
                     'categories' => $categories,
                     'active' => 4));
     }
 
+    /**
+     * Allow to edit a categorie.
+     * 
+     * @param Application $app
+     * @param Request $request
+     * @param integer $id : represent id's categorie to edit.
+     * 
+     * @return admin_categorie_form.html.twig
+     */
+    function edit_categorie_action(Application $app, Request $request, $id) {
+        $libelle = $app['dao.categorie']->find_libelle($id);
+
+        $categorie = new \G_I_A\Domain\Categorie();
+        $categorie->setLibelle($libelle['libelle']);
+        $categorie->setId($id);
+        
+        $categorie_form = $app['form.factory']->create(
+                new \G_I_A\Form\Type\CategorieType, $categorie);
+        
+        $categorie_form->handleRequest($request);
+        
+        if ($categorie_form->isSubmitted() && $categorie_form->isValid()) {
+                      
+            $app['dao.categorie']->edit($categorie);
+            
+            $app['session']->getFlashBag()->add(
+                    'success', 'La categorie a été bien modifiée.');
+        }
+        return $app['twig']->render('admin_categorie_form.html.twig', array(
+                    'title' => 'New article',
+                    'categorie_form' => $categorie_form->createView(),
+                    'active' => 0,
+                    'action' => 'Modifier'));
+    }
+    
+    /**
+     * Add new categorie in the DB.
+     * 
+     * @param Application $app
+     * @param Request $request
+     * 
+     * @return admin_categorie_form.html.twig
+     */
     public function add_categorie_action(Application $app, Request $request) {
 
         $categorie = new \G_I_A\Domain\Categorie();
@@ -207,13 +224,20 @@ class AdminController {
             $app['session']->getFlashBag()->add(
                     'success', 'La categorie a été bien crée.');
         }
-        return $app['twig']->render('categorie_form.html.twig', array(
+        return $app['twig']->render('admin_categorie_form.html.twig', array(
                     'title' => 'New article',
                     'categorieForm' => $categorieForm->createView(),
                     'active' => 3,
                     'action' => 'Ajouter'));
     }
 
+    /**
+     * 
+     * @param Application $app
+     * @param Request $request
+     * 
+     * @return type
+     */
     public function login_action(Application $app, Request $request) {
 
         if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -225,17 +249,6 @@ class AdminController {
         ));
     }
 
-    public function admin_board_action(Application $app) {
-
-        return $app['twig']->render('admin_board.html.twig');
-    }
-
-    public function categorie_admin_board_action(Application $app) {
-
-        $categories = $app['dao.categorie']->findAll();
-        return $app['twig']->render('categories_admin_board.html.twig', array(
-                    'categories' => $categories));
-    }
 
     /**
      * 
