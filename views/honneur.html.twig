@@ -1,0 +1,44 @@
+{% extends "public_layout.html.twig" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <link href="{{ app.request.basepath }}/css/honneur.css" rel="stylesheet">
+
+    <div class="page-header">
+        <h1 style="color:white;">Les Honneurs.<small>Tous les Honneurs</small></h1>
+    </div> 
+
+    <div class="row honneur">  
+        <div class="col-md-4">
+            <img src="{{ app.request.basepath }}/../images/danseur.jpg" width="100%">
+        </div>
+        <div class="col-md-8">
+            <h1>Morbi volutpat quis orci ut</h1>
+            <h2> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+        </div>  
+    </div> <hr class="divider">
+
+    <div class="row">      
+        <div class="col-md-4">
+            <img src="{{ app.request.basepath }}/../images/comedien.jpg" width="100%">
+        </div>
+        <div class="col-md-8">
+            <h1>Morbi volutpat quis orci ut</h1>
+            <h2> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+        </div>  
+    </div> <hr class="divider">
+
+    <div class="row">      
+        <div class="col-md-4">
+            <img src="{{ app.request.basepath }}/../images/chanteur.jpg" width="100%">
+        </div>
+        <div class="col-md-8">
+            <h1>Morbi volutpat quis orci ut</h1>
+            <h2> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+        </div>  
+    </div> <hr class="divider">
+    
+    <div class="space"></div>
+
+{% endblock %}

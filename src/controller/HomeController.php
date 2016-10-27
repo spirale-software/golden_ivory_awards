@@ -43,6 +43,30 @@ class HomeController {
                     'title' => 'Nominés'));
     }
     
+    /**
+     * Show all honneur
+     * @param Application $app
+     * 
+     * @return honneur.html.twig
+     */
+    public function honneur_action(Application $app) {
+        
+        return $app['twig']->render('honneur.html.twig', array(
+                    'title' => 'Honneur'));
+    }
+    
+    /**
+     * Show all honneur
+     * @param Application $app
+     * 
+     * @return honneur.html.twig
+     */
+    public function partenaire_action(Application $app) {
+        
+        return $app['twig']->render('partenaire.html.twig', array(
+                    'title' => 'Partenaire'));
+    }
+    
      /**
      * 
      * @param array $categories

@@ -1,0 +1,30 @@
+
+.honneur {
+   
+}
+
+.space {
+    margin-bottom: 75px;
+}
+
+/*.well {
+    height: 100px;
+    opacity: 0.7;
+    background-color: #292F33;
+}*/
+
+h1 { color: #034F84; 
+     font-family: 'Trocchi', serif; 
+     font-size: 45px; font-weight: normal; 
+     line-height: 48px; 
+     margin-top: 0;
+}
+
+
+h2 { color: #fff; 
+     font-family: 'Source Sans Pro', sans-serif; 
+     font-size: 28px; font-weight: 400; 
+     line-height: 32px; 
+     /*margin: 0 0 24px; */
+}
+

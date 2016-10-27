@@ -216,17 +216,17 @@ class AdminController {
     public function add_categorie_action(Application $app, Request $request) {
 
         $categorie = new \G_I_A\Domain\Categorie();
-        $categorieForm = $app['form.factory']->create(
+        $categorie_form = $app['form.factory']->create(
                 new \G_I_A\Form\Type\CategorieType, $categorie);
-        $categorieForm->handleRequest($request);
-        if ($categorieForm->isSubmitted() && $categorieForm->isValid()) {
+        $categorie_form->handleRequest($request);
+        if ($categorie_form->isSubmitted() && $categorie_form->isValid()) {
             $app['dao.categorie']->save($categorie);
             $app['session']->getFlashBag()->add(
                     'success', 'La categorie a été bien crée.');
         }
         return $app['twig']->render('admin_categorie_form.html.twig', array(
                     'title' => 'New article',
-                    'categorieForm' => $categorieForm->createView(),
+                    'categorie_form' => $categorie_form->createView(),
                     'active' => 3,
                     'action' => 'Ajouter'));
     }

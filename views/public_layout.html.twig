@@ -5,64 +5,24 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        {#<link href="{{ app.request.basepath }}/css/layout.css" rel="stylesheet">#}
+        <link href="{{ app.request.basepath }}/css/public_layout.css" rel="stylesheet">
         <title>MicroCMS - {% block title %}{% endblock %}</title>
 
         <!--[Style]
             =================================================================-->
         <style type="text/css">
             body {
-                background-image: url({{ app.request.basepath }}/../images/oscar.jpg);
-                background-repeat:no-repeat ;
-                background-size:cover  ;
+                background-image: url('{{ app.request.basepath }}/../images/oscar.jpg');
             }
 
-            nav {
-                margin-top: 15px;
-                opacity: 0.9;
-            }
-
-            li {
-                color: white;
-                padding-left: 10px;
-                margin-top: 10px
-            }
-            a {
-                color: white;
-            }
-
-            .container-style {
-                width: 70%;
-            }
-
-            .carrousel-style {
-                height: 400px;
-
-
-            }
-
-            .caption-style {
-                padding-bottom: 170px;
-            }
-
-            .thumbail-style {
-                opacity: 0.8;
-
-            }
-
-            #footer {
-                background:#292F33;
-                width:100%;
-                height:100px;
-                position:relative;
-                bottom:0;
-                left:0;
+            p {
+                color:white;
             }
         </style>
         <!--[/Style]
             =====================================================================-->
-
     </head>
+
     <body> 
         <div class="container container-style">
             <nav class="navbar navbar-inverse">
@@ -75,38 +35,45 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Golden Ivory Awards</a>
+                        <a class="navbar-brand" href="{{ path('home') }}">Golden Ivory Awards</a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Accueil</a></li>
-                            <li><a href="#">Qui sommes nous?</a></li>
-                            <li><a href="#">Partenaires</a></li>
+                            <li><a href="{{ path('home') }}">Accueil</a></li>
+                            <li><a href=" {{ path('honneur') }} ">Honneurs</a></li>
+                            <li><a href="#qui">Qui sommes nous?</a></li>
+                            <li><a href=" {{ path('partenaires') }} ">Partenaires</a></li>
                             <li><a href="#">Conatct</a></li>
                         </ul>
-
-
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
-
+            
+            <div id="qui"></div>
+            
         {% block content %}{% endblock %}
 
-
-
-    </div>
-    <footer>
-        <div class="row" id="footer">
-            <div class="col-md-4" style="text-align: center">
-                <a href="{{ path('nomine_all') }}">admin</a>
+        <footer>
+            <div id="footer">
+                <div class="row">
+                    <div class="col-md-4" style="text-align: center">
+                        <a href="{{ path('nomine_all') }}">Se connecter</a>
+                    </div>
+                    <div class="col-md-4 re" style="text-align: center">
+                        <p>Design by - <a href="http://www.spirale-software.com" target="_blank">spirale-software.com</a></p>
+                        <p>&copy; Copyright - 2016</p>      
+                    </div>
+                    <div class="col-md-4 pull-right">
+                        <a href="#">
+                            <img src="{{ app.request.basepath }}/../images/facebook.png" width="40">
+                        </a>
+                    </div>
+                </div>
             </div>
-            
-
-        </div>
-
-    </footer>
+        </footer>
+    </div>
 
     <!-- jQuery -->
     <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>

@@ -1,0 +1,28 @@
+{% extends "public_layout.html.twig" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <link href="{{ app.request.basepath }}/css/partenaire.css" rel="stylesheet">
+
+    <div class="page-header">
+        <h1>Partenaires</h1>
+    </div>
+    
+    <div class="partenaire center-block">
+        <div class="row">
+            <div class="col-md-3">
+                 <img src="{{ app.request.basepath }}/../images/partner_1.jpg" >
+            </div>
+            <div class="col-md-3 ">
+                 <img src="{{ app.request.basepath }}/../images/partner_2.jpg" >
+            </div>
+            <div class="col-md-3 center-block">
+                 <img src="{{ app.request.basepath }}/../images/partner_2.png" >
+            </div>
+            <div class="col-md-3">
+                 <img src="{{ app.request.basepath }}/../images/facebook.png" >
+            </div>
+        </div>
+    </div>
+{% endblock %}

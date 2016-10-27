@@ -3,6 +3,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+    <link href="{{ app.request.basepath }}/css/index.css" rel="stylesheet">
 
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
@@ -36,7 +37,6 @@
                     <p>Message 3</p>
                 </div>
             </div>
-
         </div>
 
         <!-- Controls -->
@@ -50,78 +50,21 @@
         </a>
     </div>
 
-
-    <!-- les Honneurs
-      =====================================================================-->
-
-    <div class="page-header">
-        <h1 style="color:white;">Les Honneurs.<small>Tous les Honneurs</small></h1>
-    </div>
-
-
-    <div class="row">
-        <!-- 1 -->
-        <div class="col-md-3">
-            <a href="{{ path('public_nomine_all') }} ">
-                <div class="thumbnail thumbail-style">
-                    <img src="{{ app.request.basepath }}/../images/img_3.jpg" width="100%">
-                    <div class="caption">
-                        <h4>Meilleur Chanteur</h4>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- 2 -->
-        <div class="col-md-3">
-            <div class="thumbnail thumbail-style">
-                <img src="{{ app.request.basepath }}/../images/img_1.jpg" width="100%">
-                <div class="caption">
-                    <h4>Meilleur Danseur</h4>                 
-                </div>
-            </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="col-md-3">
-            <div class="thumbnail thumbail-style">
-                <img src="{{ app.request.basepath }}/../images/img_2.jpg" width="100%">
-                <div class="caption">
-                    <h4>Meilleur Musicien</h4>                   
-                </div>
-            </div>
-        </div>
-
-        <!-- 4 -->
-        <div class="col-md-3">
-            <div class="thumbnail thumbail-style">
-                <img src="{{ app.request.basepath }}/../images/img_3.jpg" width="100%">
-                <div class="caption">
-                    <h4>Meilleur Comedien</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- L'Evènement
-=======================================================-->
-    <div class="page-header">
-        <h1 style="color:white;">L'Evènement</h1>
-    </div>
-    <div class="panel panel-default" style="opacity:0.7">
-        <div class="panel-body">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel nisl rutrum, viverra nulla non, tempor libero. Fusce ac interdum sem. Nam vestibulum ipsum at lectus gravida, a elementum lacus maximus. Fusce vel eros vel sem malesuada aliquet et sed justo. Nam sed elit ac arcu placerat vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam luctus pharetra dolor, et consequat augue commodo quis. Quisque eget consequat justo
-        </div>
-    </div>
-
     <!-- Qui Sommes Nous
       =======================================================-->
     <div class="page-header">
-        <h1 style="color:white;">Qui sommes nous?</h1>
+        <h1>Qui sommes nous?</h1>
     </div>
-    <div class="panel panel-default" style="opacity:0.7">
+    <div class="panel panel-default">
         <div class="panel-body">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel nisl rutrum, viverra nulla non, tempor libero. Fusce ac interdum sem. Nam vestibulum ipsum at lectus gravida, a elementum lacus maximus. Fusce vel eros vel sem malesuada aliquet et sed justo. Nam sed elit ac arcu placerat vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam luctus pharetra dolor, et consequat augue commodo quis. Quisque eget consequat justo
+            <h2> Lorem ipsum dolor sit amet, 
+                consectetur adipiscing elit. 
+                Praesent vel nisl rutrum, 
+                viverra nulla non, tempor libero. 
+                Fusce vel eros vel sem malesuada aliquet et sed justo. 
+                Nam sed elit ac arcu placerat vestibulum. 
+                 Quisque eget consequat justo
+            </h2>
         </div>
     </div>
 

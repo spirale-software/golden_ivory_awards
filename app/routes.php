@@ -16,6 +16,16 @@ $app->match('/all',
         'G_I_A\Controller\HomeController::all_nomines_action')
         ->bind('public_nomine_all');
 
+/* Listed all Nomine */
+$app->match('/honneur', 
+        'G_I_A\Controller\HomeController::honneur_action')
+        ->bind('honneur');
+
+/* Listed all Partenaires */
+$app->match('/partenaires', 
+        'G_I_A\Controller\HomeController::partenaire_action')
+        ->bind('partenaires');
+
 /*************************** Admin Routes *************************************/
  
         /******************  Nomine ******************************/         
