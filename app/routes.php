@@ -16,10 +16,20 @@ $app->match('/all',
         'G_I_A\Controller\HomeController::all_nomines_action')
         ->bind('public_nomine_all');
 
-/* Listed all Nomine */
+/* Listed all Honnors */
 $app->match('/honneur', 
         'G_I_A\Controller\HomeController::honneur_action')
         ->bind('honneur');
+
+/* Listed all Nomines according to the honnor */
+$app->match('/nomines/honneur/{id}', 
+        'G_I_A\Controller\HomeController::nomine_honneur_action')
+        ->bind('nomine_honneur');
+
+/* Show detail about a given nomine */
+$app->match('/nomine/detail/{id}', 
+        'G_I_A\Controller\HomeController::nomine_detail_action')
+        ->bind('public_nomine_detail');
 
 /* Listed all Partenaires */
 $app->match('/partenaires', 
@@ -79,3 +89,16 @@ $app->match('/categorie/edit/{id}',
 $app->match('/login', 
         'G_I_A\Controller\AdminController::login_action')
         ->bind('login');
+
+  /******************  Honneur ******************************/
+
+/* return all honneur */
+$app->get('admin/all_honneur', 
+        'G_I_A\Controller\AdminController::all_honneur_action')
+        ->bind('all_honneurs');
+
+/* return all honneur */
+$app->match('admin/honneur/add', 
+        'G_I_A\Controller\AdminController::add_honneur_action')
+        ->bind('honneur_add');
+

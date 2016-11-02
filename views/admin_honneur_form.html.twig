@@ -1,0 +1,86 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block admin_title %} Ajout d'un nouvel honneur {% endblock %}
+
+{% block content %}
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <div class="well">
+        {{ form_start(honneur_form, { 'attr': {'class': 'form-horizontal'} }) 
+        }}
+        <!-- Nom
+            =============================================================-->
+        <div class="form-group">
+            {{ form_label(honneur_form.libelle, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+            }}) }}
+            <div class="col-sm-6">
+                {{ form_errors(honneur_form.libelle) }}
+                {{ form_widget(honneur_form.libelle, { 'attr':  {
+                'class': 'form-control'
+                }}) }}
+            </div>
+        </div>
+
+        <!-- Descriptif
+    =============================================================-->
+        <div class="form-group">
+            {{ form_label(honneur_form.descriptif, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+            }}) }}
+            <div class="col-sm-6">
+                {{ form_errors(honneur_form.descriptif) }}
+                {{ form_widget(honneur_form.descriptif, { 'attr':  {
+                    'rows':4,
+                    'class': 'form-control'
+                }}) }}
+            </div>
+        </div>
+
+        <!-- liste des categories
+        =============================================================-->
+        <div class="form-group">
+            {{ form_label(honneur_form.categorieID, 'Categorie', { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+            }}) }}
+
+            <div class="col-sm-6">
+                {{ form_errors(honneur_form.categorieID) }}
+                {{ form_widget(honneur_form.categorieID, { 'attr':  {
+                'class': 'form-control'
+                }}) }}
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            {{ form_label(honneur_form.photoID, 'Photo', { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+            }}) }}
+            <div class="col-sm-6">
+                {{ form_errors(honneur_form.photoID) }}
+                {{ form_widget(honneur_form.photoID, { 'attr':  { 
+                   
+                }}) }}
+            </div>
+        </div>
+
+        <!-- Boutton Submit
+            =============================================================-->      
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-3">
+                <input type="submit" class="btn btn-primary" value="enregistrer" />
+            </div>
+        </div>
+        {{ form_end(honneur_form) }}
+    </div>
+{% endblock %}
+
+
+
+

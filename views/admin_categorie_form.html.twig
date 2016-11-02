@@ -4,31 +4,36 @@
 {% block admin_title %} Gestion des Catégories {% endblock %}
 
 {% block content %}
-   
-        <div class="well" id="categorie_form">
-            {{ form_start(categorie_form, { 'attr': {'class': 'form-horizontal'} }) }}
-            <div class="form-group">
-                {{ form_label(categorie_form.libelle, null, { 'label_attr':  {
-            'class': 'col-sm-4 control-label'
-                }}) }}
-                <div class="col-sm-6">
-                    {{ form_errors(categorie_form.libelle) }}
-                    {{ form_widget(categorie_form.libelle, { 'attr':  {
-                'class': 'form-control', 'placeholder':'Entrer Nouvelle Categorie'
-                    }}) }}
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-3">
-                    <input type="submit" class="btn btn-primary" value="{{ action }}" />
-                </div>
-            </div>
-            {{ form_end(categorie_form) }}
-
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
         </div>
-            
+    {% endfor %}
+
+    <div class="well" id="categorie_form">
+        {{ form_start(categorie_form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="form-group">
+            {{ form_label(categorie_form.libelle, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+            }}) }}
+            <div class="col-sm-6">
+                {{ form_errors(categorie_form.libelle) }}
+                {{ form_widget(categorie_form.libelle, { 'attr':  {
+                'class': 'form-control', 'placeholder':'Entrer Nouvelle Categorie'
+                }}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-3">
+                <input type="submit" class="btn btn-primary" value="{{ action }}" />
+            </div>
+        </div>
+        {{ form_end(categorie_form) }}
+
+    </div>
+
 {% endblock %}
 
- 
+
 

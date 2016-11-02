@@ -6,11 +6,98 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
 include_once __DIR__ . '/../form/type/categorieType.php';
+include_once __DIR__ . '/../form/type/PrixType.php';
 include_once __DIR__ . '/../form/type/nomineType.php';
 include_once __DIR__ . '/../domain/Nomine.php';
 include_once __DIR__ . '/../domain/Prix.php';
 
 class AdminController {
+
+    /**
+     * Add a new honneur(prix) in the DB
+     * 
+     * @param Application $app
+     * @param Request $request
+     * 
+     * @return  admin_honneur_form.html.twig
+     */
+    public function add_honneur_action(Application $app, Request $request) {
+
+        $prix = new \G_I_A\Domain\Prix();
+        $honneur_form = $app['form.factory']->create(
+                new \G_I_A\Form\Type\PrixType(), $prix);
+        
+        $honneur_form->handleRequest($request);
+
+        if ($honneur_form->isSubmitted() && $honneur_form->isValid()) {
+
+            $fileName = $this->savePhoto($prix);
+
+            $prix->setPhotoID($fileName);
+
+            $app['dao.prix']->save($prix);
+
+            $app['session']->getFlashBag()->add(
+                    'success', "L'honneur a été bien crée.");
+        }
+
+        return $app['twig']->render('admin_honneur_form.html.twig', array(
+                    'title' => 'New Honneur',
+                    'honneur_form' => $honneur_form->createView(),
+                    'active' => 5));
+    }
+
+    /**
+     * Show all honneur(prix) which are in the DB
+     * 
+     * @param Application $app
+     * 
+     * @return admin_honneur_all.html.twig
+     */
+    public function all_honneur_action(Application $app) {
+        
+        $honneurs = $app['dao.prix']->find_all();
+        $categories = $app['dao.categorie']->findAll();
+        
+        foreach ($honneurs as  $honneur) { 
+           
+            $libelle = $this->find_libelle_by_ID(
+                    $categories, $honneur->getCategorieID());
+            
+           
+            $honneur->setLibelleCategorie($libelle);
+        }
+
+        return $app['twig']->render('admin_honneur_all.html.twig', array(
+                    'honneurs' => $honneurs,
+                    'title' => 'Honneurs',
+                    'active' => 6));
+    }
+
+    /**
+     * Delete a given honneur. 
+     * 
+     * @param Application $app
+     * @param integer $id
+     * 
+     * @return this->all_honneur_action()
+     */
+    public function delete_honneur_action(Application $app, $id) {
+        
+    }
+
+    /**
+     * Edit a given honneur
+     * 
+     * @param Application $app
+     * @param Request $request
+     * @param integer $id
+     * 
+     * @return admin_honneur_edit.html.twig
+     */
+    public function edit_honneur_action(Application $app, Request $request, $id) {
+        
+    }
 
     /**
      * Show all nomine who are in the DB.
@@ -99,7 +186,7 @@ class AdminController {
 
             $app['dao.nomine']->edit($nomine);
             $app['session']->getFlashBag()->add(
-                    'success', 'Le nominé a été bien modifié');          
+                    'success', 'Le nominé a été bien modifié');
         }
         $nomine_form_view = $nomine_form->createView();
 
@@ -279,12 +366,12 @@ class AdminController {
 
     /**
      * 
-     * @param type $nomine
+     * @param type $object
      * @return string
      */
-    private function savePhoto($nomine) {
+    private function savePhoto($object) {
 
-        $file = $nomine->getPhotoID();
+        $file = $object->getPhotoID();
         $id_photo = uniqid();
         $fileName = $id_photo . '.' . $file->guessExtension();
         $directory = __DIR__ . '/../../images/';

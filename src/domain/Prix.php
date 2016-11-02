@@ -33,6 +33,13 @@ class Prix {
      */
     private $categorieID;
     
+    /**
+     * libellé de la categorie à laquelle appartient le Prix.
+     *
+     * @var string
+     */
+    private $libelleCategorie;
+
      /**
      * id du nomine ayant gagné le Prix.
      *
@@ -83,7 +90,7 @@ class Prix {
         $this->descriptif = $descriptif;
     }
 
-    function setCategorieID(ineteger $categorieID) {
+    function setCategorieID($categorieID) {
         $this->categorieID = $categorieID;
     }
 
@@ -93,6 +100,14 @@ class Prix {
 
     function setPhotoID($photoID) {
         $this->photoID = $photoID;
+    }
+    
+     function getLibelleCategorie() {
+        return $this->libelleCategorie;
+    }
+
+    function setLibelleCategorie($libelleCategorie) {
+        $this->libelleCategorie = $libelleCategorie;
     }
 }
 

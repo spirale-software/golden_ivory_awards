@@ -1,6 +1,6 @@
 {% extends "admin_layout.html.twig" %}
 
-{% block admin_title %} Gestion des Nomines {% endblock %}
+{% block admin_title %} Gestion des Honneurs {% endblock %}
 
 {% block content %}
 
@@ -8,24 +8,24 @@
         <table class="table table-striped">
             <tr>
                 <th> </th>
-                <th>Prenom</th> 
+                <th>Libelle</th> 
                 <th>Catégorie</th>
                 <th> </th>
             </tr>
 
-            {% for nomine in nomines%}
+            {% for honneur in honneurs %}
                 <tr>
-                    <td><img src="{{ app.request.basepath }}/../images/{{nomine.photoID}}" width="50"></td>
-                    <td>{{nomine.nom}}</td>
-                    <td>{{nomine.libelleCategorie}}</td>
+                    <td><img src="{{ app.request.basepath }}/../images/{{honneur.photoID}}" width="50"></td>
+                    <td>{{honneur.libelle}}</td>
+                    <td>{{honneur.libelleCategorie}}</td>
                     <td> 
-                        <a href= "{{ path('nomine_detail', {'id':nomine.id}) }}">
+                        <a href= "{*{ path('honneur_detail', {'id':honneur.id}) }*}">
                             <button class="btn btn-info" type="button">Détail</button>
                         </a>
-                        <a href = "{{ path('nomine_edit', {'id':nomine.id}) }}">
+                        <a href = "{*{ path('honneur_edit', {'id':honneur.id}) }*}">
                             <button class="btn btn-warning" type="button">Modifier</button>
                         </a>
-                        <a href = "{{ path('nomine_delete', {'id':nomine.id})}}" >
+                        <a href = "{*{ path('honneur_delete', {'id':honneur.id})}*}" >
                             <button class="btn btn-danger" type="button">Supprimer</button>
                         </a>
                     </td>

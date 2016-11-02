@@ -1,10 +1,33 @@
 <?php namespace G_I_A\Controller;
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 
 include_once __DIR__.'/../form/type/categorieType.php';
 
 class HomeController {
+    
+     /**
+     * Show all nomines who discuss a given honnor.
+     * 
+     * @param Application $app
+     * @param integer $id
+     * 
+     * @return nomine_honneur.html.twig
+     */
+    public function nomine_honneur_action(Application $app, $id) {
+        
+    }
+    
+    /**
+     * Show detail to a given nomine
+     * 
+     * @param Application $app
+     * @param integer $id
+     * 
+     * @return  detail_nomine.html.twig
+     */
+    public function nomine_detail_action(Application $app, $id) {
+        
+    }
     
     /**
      * 
@@ -29,13 +52,12 @@ class HomeController {
         $nomines = $app['dao.nomine']->find_all_nomine();
         $categories = $app['dao.categorie']->findAll();
 
-
         foreach ($nomines as $nomine) {
 
-            $libelle_categorie = $this->find_libelle_by_ID(
+            $libelle = $this->find_libelle_by_ID(
                     $categories, $nomine->getCategorieID());
 
-            $nomine->setLibelleCategorie($libelle_categorie);
+            $nomine->setLibelleCategorie($libelle);
         }
 
         return $app['twig']->render('nomine_all.html.twig', array(

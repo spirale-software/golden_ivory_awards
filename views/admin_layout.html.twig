@@ -4,11 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="{{ app.request.basepath }}/css/layout.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">       
         <link href="{{ app.request.basepath }}/css/admin_layout.css" rel="stylesheet">
         <title>MicroCMS - {% block title %}{% endblock %}</title>
-
     </head>
 
     <body>
@@ -20,36 +18,44 @@
 
             <!-- Admin content
                 =============================================================-->
-            <div class="row">
-                <div class="col-md-3 well" id="side-bar">
-                    <ul class="nav nav-pills nav-stacked">
+            <div class="row" >
+                <div class="col-md-3 well">
+
+                    <ul class="nav nav-pills nav-stacked"> Nomines
                         <li role="presentation" class="{% if active == 1 %}active{%endif%}">
                             <a href="{{ path('nomine_all')}}">Accueil Admin</a>
                         </li>
                         <li role="presentation" class="{% if active == 2 %}active{%endif%}">
                             <a href="{{ path('nomine_add')}}">Nouveau Nomine</a>
                         </li>
+                    </ul>
+
+                    <ul class="nav nav-pills nav-stacked"> Categorie
                         <li role="presentation" class="{% if active == 3 %}active{%endif%}">
-                            <a href="{{ path('categorie_add')}}">Nouvelle Categorie</a>
+                            <a hre  href="{{ path('categorie_add')}}">Nouvelle Categorie</a>
                         </li>
                         <li role="presentation" class="{% if active == 4 %}active{%endif%}">
                             <a href="{{ path('all_categories')}}">Toutes les Categories</a>
                         </li>
                     </ul>
 
+                    <ul class="nav nav-pills nav-stacked"> Honneur
+                        <li role="presentation" class="{% if active == 5 %}active{%endif%}">
+                            <a hre  href="{{ path('honneur_add')}}">Nouvel Honneur</a>
+                        </li>
+                        <li role="presentation" class="{% if active == 6 %}active{%endif%}">
+                            <a href="{{ path('all_honneurs')}}">Tous les Honneurs</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-9">
                     {% block content %} {% endblock %}
                 </div>
             </div>
-
-
-        </div>
-
-    </div>
-    <!-- jQuery -->
-    <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
-    <!-- JavaScript Boostrap plugin -->
-    <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
-</body>
+        </div>    
+        <!-- jQuery -->
+        <script src="{{ app.request.basepath }}/lib/jquery/jquery.min.js"></script>
+        <!-- JavaScript Boostrap plugin -->
+        <script src="{{ app.request.basepath }}/lib/bootstrap/js/bootstrap.min.js"></script>
+    </body>
 </html>
