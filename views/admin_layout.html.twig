@@ -23,16 +23,16 @@
             <div class="row">
                 <div class="col-md-3 well" id="side-bar">
                     <ul class="nav nav-pills nav-stacked">
-                        <li role="presentation" class="{%if active == 1 %}active{%endif%}">
+                        <li role="presentation" class="{% if active == 1 %}active{%endif%}">
                             <a href="{{ path('nomine_all')}}">Accueil Admin</a>
                         </li>
-                        <li role="presentation" class="{%if active == 2 %}active{%endif%}">
+                        <li role="presentation" class="{% if active == 2 %}active{%endif%}">
                             <a href="{{ path('nomine_add')}}">Nouveau Nomine</a>
                         </li>
-                        <li role="presentation" class="{%if active == 3 %}active{%endif%}">
+                        <li role="presentation" class="{% if active == 3 %}active{%endif%}">
                             <a href="{{ path('categorie_add')}}">Nouvelle Categorie</a>
                         </li>
-                        <li role="presentation" class="{%if active == 4 %}active{%endif%}">
+                        <li role="presentation" class="{% if active == 4 %}active{%endif%}">
                             <a href="{{ path('all_categories')}}">Toutes les Categories</a>
                         </li>
                     </ul>

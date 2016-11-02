@@ -43,6 +43,7 @@ class Utilisateur implements UserInterface{
     private $password;
     
     private $salt;
+    
    
     function getId_usr() {
         return $this->id_usr;

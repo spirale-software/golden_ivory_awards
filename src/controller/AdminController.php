@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 include_once __DIR__ . '/../form/type/categorieType.php';
 include_once __DIR__ . '/../form/type/nomineType.php';
 include_once __DIR__ . '/../domain/Nomine.php';
+include_once __DIR__ . '/../domain/Prix.php';
 
 class AdminController {
 
@@ -58,7 +59,8 @@ class AdminController {
 
         return $app['twig']->render('admin_nomine_detail.html.twig', array(
                     'title' => '',
-                    'nomine' => $nomine));
+                    'nomine' => $nomine,
+                    'active' => 0));
     }
 
     /**
@@ -75,6 +77,9 @@ class AdminController {
         $_nomine = $app['dao.nomine']->find_nomine_by_ID($id);
         $nomine = array_shift($_nomine);
 
+        $photoID = $nomine->getPhotoID();
+        $nomine->setPhotoID(NULL);
+
         $libelle = $app['dao.categorie']->find_libelle(
                 $nomine->getCategorieID());
         $nomine->setLibelleCategorie($libelle);
@@ -90,17 +95,20 @@ class AdminController {
 
             $nomine->setLibelleCategorie($libelle);
 
+            $this->managePhoto($nomine, $photoID);
+
             $app['dao.nomine']->edit($nomine);
             $app['session']->getFlashBag()->add(
-                    'success', 'Le nominé a été bien modifié');
+                    'success', 'Le nominé a été bien modifié');          
         }
         $nomine_form_view = $nomine_form->createView();
 
         return $app['twig']->render('admin_nomine_edit.html.twig', array(
                     'title' => '',
-                    'nomine_form' => $nomine_form_view));
+                    'nomine_form' => $nomine_form_view,
+                    'active' => 0));
     }
-    
+
     /**
      * Add a new nomine in the DB
      * 
@@ -118,12 +126,12 @@ class AdminController {
 
         if ($nomine_form->isSubmitted() && $nomine_form->isValid()) {
 
-            $libelle = $app['dao.categorie']->find_libelle(
-                    $nomine->getCategorieID());
+            $fileName = $this->savePhoto($nomine);
 
-            $nomine->setLibelleCategorie($libelle);
+            $nomine->setPhotoID($fileName);
 
             $app['dao.nomine']->save($nomine);
+
             $app['session']->getFlashBag()->add(
                     'success', 'Le nomine a été bien crée.');
         }
@@ -133,8 +141,8 @@ class AdminController {
                     'nomine_form' => $nomine_form->createView(),
                     'active' => 2));
     }
-    
-     /**
+
+    /**
      * allow to delete a given nomine 
      * 
      * @param Application $app
@@ -152,8 +160,8 @@ class AdminController {
 
         return $this->all_nomines_action($app);
     }
-    
-/***************************** Categorie **************************************/
+
+    /*     * *************************** Categorie ************************************* */
 
     /**
      * Show all the categories which are present in the DB.
@@ -185,16 +193,16 @@ class AdminController {
         $categorie = new \G_I_A\Domain\Categorie();
         $categorie->setLibelle($libelle['libelle']);
         $categorie->setId($id);
-        
+
         $categorie_form = $app['form.factory']->create(
                 new \G_I_A\Form\Type\CategorieType, $categorie);
-        
+
         $categorie_form->handleRequest($request);
-        
+
         if ($categorie_form->isSubmitted() && $categorie_form->isValid()) {
-                      
+
             $app['dao.categorie']->edit($categorie);
-            
+
             $app['session']->getFlashBag()->add(
                     'success', 'La categorie a été bien modifiée.');
         }
@@ -204,7 +212,7 @@ class AdminController {
                     'active' => 0,
                     'action' => 'Modifier'));
     }
-    
+
     /**
      * Add new categorie in the DB.
      * 
@@ -249,7 +257,6 @@ class AdminController {
         ));
     }
 
-
     /**
      * 
      * @param array $categories
@@ -268,6 +275,37 @@ class AdminController {
         }
 
         return $libelle;
+    }
+
+    /**
+     * 
+     * @param type $nomine
+     * @return string
+     */
+    private function savePhoto($nomine) {
+
+        $file = $nomine->getPhotoID();
+        $id_photo = uniqid();
+        $fileName = $id_photo . '.' . $file->guessExtension();
+        $directory = __DIR__ . '/../../images/';
+        $file->move($directory, $fileName);
+
+        return $fileName;
+    }
+
+    /**
+     * 
+     * @param type $nomine
+     * @param type $photoID
+     */
+    private function managePhoto($nomine, $photoID) {
+
+        if (is_null($nomine->getPhotoID())) {
+            $nomine->setPhotoID($photoID);
+        } else {
+            $fileName = $this->savePhoto($nomine);
+            $nomine->setPhotoID($fileName);
+        }
     }
 
 }

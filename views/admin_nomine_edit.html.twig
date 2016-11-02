@@ -3,6 +3,12 @@
 {% block admin_title %} Modifier Nominé{% endblock %}
 
 {% block content %} 
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    
     <div class="well">
         {{ form_start(nomine_form, { 'attr': {'class': 'form-horizontal'} }) 
         }}

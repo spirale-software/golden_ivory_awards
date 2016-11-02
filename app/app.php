@@ -5,6 +5,7 @@ use Symfony\Component\Debug\ExceptionHandler;
 include_once __DIR__.'/../src/dao/CategorieDAO.php';
 include_once __DIR__.'/../src/dao/NomineDAO.php';
 include_once __DIR__.'/../src/dao/UtilisateurDAO.php';
+include_once __DIR__.'/../src/dao/PrixDAO.php';
 
 // Register global error and exception handlers
 ErrorHandler::register();
@@ -48,6 +49,9 @@ return new G_I_A\DAO\NomineDAO($app['db']);
 });  
 $app['dao.utilisateur'] = $app->share(function ($app) {
 return new G_I_A\DAO\UtilisateurDAO($app['db']);
+});  
+$app['dao.prix'] = $app->share(function ($app) {
+return new G_I_A\DAO\PrixDAO($app['db']);
 });  
 
 //Globals variables

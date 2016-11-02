@@ -20,6 +20,20 @@ class Nomine {
      */
     private $nom;
     
+     /**
+     * texte décrivant le nominé.
+     *
+     * @var string
+     */
+    private $descriptif;
+    
+    /**
+     * actualité concernant le nominé.
+     *
+     * @var string
+     */
+    private $actualite;
+    
     /**
      * id de la catégorie à laquelle appartient le nominé.
      *
@@ -35,66 +49,67 @@ class Nomine {
     private $libelleCategorie;
     
     /**
-     * texte décrivant le nominé.
+     * id de la photo représentant le nominé.
      *
      * @var string
      */
-    private $descriptif;
+    private $photoID;
     
-    /**
-     * actualité concernant le nominé.
-     *
-     * @var string
-     */
-    private $actualite;
     
-    function getId() {
+    public function getId() {
         return $this->id;
     }
+    
+    public function getPhotoID() {
+        return $this->photoID;
+    }
 
-    function getNom() {
+    public function getNom() {
         return $this->nom;
     }
 
-    function getDescriptif() {
+    public function getDescriptif() {
         return $this->descriptif;
     }
 
-    function getActualite() {
+    public function getActualite() {
         return $this->actualite;
     }
 
-    function setId($id) {
+    public function setId($id) {
         $this->id = $id;
     }
 
-    function setNom($nom) {
+    public function setNom($nom) {
         $this->nom = $nom;
     }
 
-    function setDescriptif($descriptif) {
+    public function setDescriptif($descriptif) {
         $this->descriptif = $descriptif;
     }
 
-    function setActualite($actualite) {
+    public function setActualite($actualite) {
         $this->actualite = $actualite;
     }  
-  
-    public function setLibelleCategorie($libelle) {
-        $this->libelleCategorie = $libelle;
-    } 
     
-    public function getLibelleCategorie() {
-        return $this->libelleCategorie;
-    }
-    
-    function setCategorieID($categorieID) {
+    public function setCategorieID($categorieID) {
         $this->categorieID = $categorieID;
     }
     
-    function getCategorieID() {
+    public function getCategorieID() {
         return $this->categorieID;
-    }
+    }   
     
+    public function setPhotoID($photoID) {
+        return $this->photoID = $photoID;
+    }   
+    
+    public function getLibelleCategorie() {
+        return $this->libelleCategorie;
+    }   
+    
+    public function setLibelleCategorie($libelleCategorie) {
+        return $this->libelleCategorie = $libelleCategorie;
+    }   
 }
 

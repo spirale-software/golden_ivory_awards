@@ -1,5 +1,4 @@
-<?php
-namespace G_I_A\Domain;
+<?php namespace G_I_A\Domain;
 
 /**
  * @OVERVIEW: Categorie représente la catégorie à laquelle appartient un nominé.
@@ -20,6 +19,18 @@ namespace G_I_A\Domain;
      */
      private $libelle;
      
+     /**
+     * id de la photo représentant la Categorie.
+     *
+     * @var integer
+     */
+     private $photoID;
+     
+     
+     function getPhotoID() {
+         return $this->photoID;
+     }
+     
      function getId() {
          return $this->id;
      }
@@ -34,5 +45,9 @@ namespace G_I_A\Domain;
 
      function setLibelle($libelle) {
          $this->libelle = $libelle;
+     }
+     
+     function setPhotoID($photoID) {
+         $this->photoID = $photoID;
      }
  }

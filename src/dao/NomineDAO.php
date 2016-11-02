@@ -23,9 +23,10 @@ class NomineDAO extends DAO {
     public function save($nomine) {
         $nomine_to_insert = array(
             'nom' => $nomine->getNom(),
-            'categorie_nomine' => $nomine->getCategorieID(),
+            'categorieID' => $nomine->getCategorieID(),
             'descriptif' => $nomine->getDescriptif(),
-            'actualite' => $nomine->getActualite());
+            'actualite' => $nomine->getActualite(),
+            'photoID' => $nomine->getPhotoID());
         try {
             $this->getDb()->insert('t_nomine', $nomine_to_insert);
         } catch (Exception $ex) {
@@ -34,6 +35,8 @@ class NomineDAO extends DAO {
             throw new DAOException($message);
         }
     }
+    
+    
 
     /**
      * Delete the variable $nomine in the DB.
@@ -44,7 +47,8 @@ class NomineDAO extends DAO {
      */
     public function delete(\G_I_A\Domain\Nomine $nomine) {
 
-        $nomine_to_delete = array('id_nomine' => $nomine->getId());
+        $nomine_to_delete = array('id' => $nomine->getId());
+               
         try {
             $this->getDb()->delete('t_nomine', $nomine_to_delete);
         } catch (Exception $ex) {
@@ -65,11 +69,12 @@ class NomineDAO extends DAO {
 
         $nomineData = array(
             'nom' => $nomine->getNom(),
-            'categorie_nomine' => $nomine->getCategorieID(),
+            'categorieID' => $nomine->getCategorieID(),
             'descriptif' => $nomine->getDescriptif(),
-            'actualite' => $nomine->getActualite());
+            'actualite' => $nomine->getActualite(),
+            'photoId' => $nomine->getPhotoID());
 
-        $nomine_to_update = array('id_nomine' => $nomine->getId());
+        $nomine_to_update = array('id' => $nomine->getId());
 
         try {
             $this->getDb()->update('t_nomine', $nomineData, $nomine_to_update);
@@ -101,7 +106,7 @@ class NomineDAO extends DAO {
      */
     public function find_nomine_by_ID($id_nomine) {
 
-        $sql = "SELECT * FROM t_nomine WHERE id_nomine = " . $id_nomine;
+        $sql = "SELECT * FROM t_nomine WHERE id = " . $id_nomine;
         $attribute = 'ID';
 
         return $this->find($sql, $attribute);
@@ -115,7 +120,7 @@ class NomineDAO extends DAO {
      */
     public function find_nomine_by_categorie($categorie) {
 
-        $sql = "SELECT * FROM t_nomine WHERE categorie_nomine = "
+        $sql = "SELECT * FROM t_nomine WHERE categorieID = "
                 . $categorie;
         $attribute = 'Categorie';
 
@@ -131,11 +136,12 @@ class NomineDAO extends DAO {
     protected function buildDomainObject($row) {
         $nomine = new \G_I_A\Domain\Nomine();
  
-        $nomine->setId($row['id_nomine']);
+        $nomine->setId($row['id']);
         $nomine->setNom($row['nom']);
-        $nomine->setCategorieID($row['categorie_nomine']); 
+        $nomine->setCategorieID($row['categorieID']); 
         $nomine->setDescriptif($row['descriptif']);
         $nomine->setActualite($row['actualite']);
+        $nomine->setPhotoID($row['photoID']);
 
         return $nomine;
     }
@@ -157,7 +163,7 @@ class NomineDAO extends DAO {
             $array_of_nomines = array();
 
             foreach ($nomines as $row) {
-                $id = $row['id_nomine'];
+                $id = $row['id'];
                 $array_of_nomines[$id] = $this->buildDomainObject($row);
             }
 

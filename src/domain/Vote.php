@@ -5,49 +5,50 @@
  *              nominé.
  */
 class Vote {
-    
+
     /**
      * id du du vote.
      *
      * @var integer
      */
     private $id;
-    
+
     /**
      * nominé à qui va le vote.
      *
      * @var integer
      */
-    private $nomine;
-    
+    private $nomineID;
+
     /**
      * utilisateur qui a donné son vote à un nominé.
      *
      * @var integer
      */
-    private $utilisateur;
+    private $userID;
+
     
     function getId() {
         return $this->id;
     }
 
-    function getNomine() {
-        return $this->nomine;
+    function getNomineID() {
+        return $this->nomineID;
     }
 
-    function getUtilisateur() {
-        return $this->utilisateur;
+    function getUserID() {
+        return $this->userID;
     }
 
     function setId($id) {
         $this->id = $id;
     }
 
-    function setNomine($nomine) {
-        $this->nomine = $nomine;
+    function setNomineID($nomineID) {
+        $this->nomineID = $nomineID;
     }
 
-    function setUtilisateur($utilisateur) {
-        $this->utilisateur = $utilisateur;
+    function setUserID($userID) {
+        $this->userID = $userID;
     }
 }
