@@ -40,28 +40,28 @@ $app->match('/partenaires',
  
         /******************  Nomine ******************************/         
 
-/* Listed all Nomine */
-$app->match('/nomine/all', 
+/* Admin home page */
+$app->match('/admin/accueil', 
         'G_I_A\Controller\AdminController::all_nomines_action')
         ->bind('nomine_all');
 
 /*  Add a new nomine */
-$app->match('/nomine/add', 
+$app->match('/admin/nomine/add', 
         'G_I_A\Controller\AdminController::add_nomine_action')
         ->bind('nomine_add');
 
 /* Show detail of a given nomine */
-$app->match('/nomine/detail/{id}', 
+$app->match('/admin/nomine/detail/{id}', 
         'G_I_A\Controller\AdminController::detail_nomine_action')
         ->bind('nomine_detail');
 
 /* Edit information about given nomine */
-$app->match('/nomine/edit/{id}', 
+$app->match('/admin/nomine/edit/{id}', 
         'G_I_A\Controller\AdminController::edit_nomine_action')
         ->bind('nomine_edit');
 
 /* Delete nomine with a given id. */
-$app->match('/nomine/delete/{id}', 
+$app->match('/admin/nomine/delete/{id}', 
         'G_I_A\Controller\AdminController::delete_nomine_action')
         ->bind('nomine_delete');
 
@@ -69,36 +69,45 @@ $app->match('/nomine/delete/{id}',
         /******************  Categorie ******************************/
 
 /* return all categories */
-$app->get('/all_categories', 
+$app->get('/admin/categorie/all', 
         'G_I_A\Controller\AdminController::all_categorie_action')
         ->bind('all_categories');
 
 /* Add a new categorie */
-$app->match('/categorie/add',
+$app->match('/admin/categorie/add',
         'G_I_A\Controller\AdminController::add_categorie_action')
         ->bind('categorie_add');
 
 /* Edit an given categorie */
-$app->match('/categorie/edit/{id}', 
+$app->match('/admin/categorie/edit/{id}', 
         'G_I_A\Controller\AdminController::edit_categorie_action')
         ->bind('categorie_edit');
 
-        /******************  Login ******************************/
+        /******************  Login && Contact ******************************/
 
 /* login */
 $app->match('/login', 
         'G_I_A\Controller\AdminController::login_action')
         ->bind('login');
 
+/* Contact */
+$app->match('/contact', 
+        'G_I_A\Controller\HomeController::contact_action')
+        ->bind('contact');
+
   /******************  Honneur ******************************/
 
 /* return all honneur */
-$app->get('admin/all_honneur', 
+$app->get('/admin/honneur/all', 
         'G_I_A\Controller\AdminController::all_honneur_action')
         ->bind('all_honneurs');
 
 /* return all honneur */
-$app->match('admin/honneur/add', 
+$app->match('/admin/honneur/add', 
         'G_I_A\Controller\AdminController::add_honneur_action')
         ->bind('honneur_add');
 
+/* Delete a given honneur */
+$app->match('/admin/honneur/delete/{id}', 
+        'G_I_A\Controller\AdminController::delete_honneur_action')
+        ->bind('honneur_delete');

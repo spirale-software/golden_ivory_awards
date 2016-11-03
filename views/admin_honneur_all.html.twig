@@ -20,12 +20,12 @@
                     <td>{{honneur.libelleCategorie}}</td>
                     <td> 
                         <a href= "{*{ path('honneur_detail', {'id':honneur.id}) }*}">
-                            <button class="btn btn-info" type="button">Détail</button>
+                            <button class="btn btn-info" type="button" disabled="disabled">Détail</button>
                         </a>
                         <a href = "{*{ path('honneur_edit', {'id':honneur.id}) }*}">
-                            <button class="btn btn-warning" type="button">Modifier</button>
+                            <button class="btn btn-warning" type="button" disabled="disabled">Modifier</button>
                         </a>
-                        <a href = "{*{ path('honneur_delete', {'id':honneur.id})}*}" >
+                        <a href = "{{ path('honneur_delete', {'id': honneur.id })}}" >
                             <button class="btn btn-danger" type="button">Supprimer</button>
                         </a>
                     </td>

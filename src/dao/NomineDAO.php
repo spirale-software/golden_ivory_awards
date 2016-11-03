@@ -118,10 +118,10 @@ class NomineDAO extends DAO {
      * @return an array of Nomine objet who are in the same categorie..
      * 
      */
-    public function find_nomine_by_categorie($categorie) {
+    public function find_nomine_by_categorie($id_categorie) {
 
         $sql = "SELECT * FROM t_nomine WHERE categorieID = "
-                . $categorie;
+                . $id_categorie;
         $attribute = 'Categorie';
 
         return $this->find($sql, $attribute);

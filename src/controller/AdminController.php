@@ -26,7 +26,7 @@ class AdminController {
         $prix = new \G_I_A\Domain\Prix();
         $honneur_form = $app['form.factory']->create(
                 new \G_I_A\Form\Type\PrixType(), $prix);
-        
+
         $honneur_form->handleRequest($request);
 
         if ($honneur_form->isSubmitted() && $honneur_form->isValid()) {
@@ -55,16 +55,16 @@ class AdminController {
      * @return admin_honneur_all.html.twig
      */
     public function all_honneur_action(Application $app) {
-        
+
         $honneurs = $app['dao.prix']->find_all();
         $categories = $app['dao.categorie']->findAll();
-        
-        foreach ($honneurs as  $honneur) { 
-           
+
+        foreach ($honneurs as $honneur) {
+
             $libelle = $this->find_libelle_by_ID(
                     $categories, $honneur->getCategorieID());
-            
-           
+
+
             $honneur->setLibelleCategorie($libelle);
         }
 
@@ -83,7 +83,11 @@ class AdminController {
      * @return this->all_honneur_action()
      */
     public function delete_honneur_action(Application $app, $id) {
-        
+
+        $app['dao.prix']->delete(intval($id));
+
+
+        return $this->all_honneur_action($app);
     }
 
     /**
@@ -310,6 +314,7 @@ class AdminController {
      */
     public function add_categorie_action(Application $app, Request $request) {
 
+
         $categorie = new \G_I_A\Domain\Categorie();
         $categorie_form = $app['form.factory']->create(
                 new \G_I_A\Form\Type\CategorieType, $categorie);
@@ -334,13 +339,18 @@ class AdminController {
      * @return type
      */
     public function login_action(Application $app, Request $request) {
-
-        if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $app->redirect('admin_board');
+        
+        $token = $app['security.token_storage']->getToken();
+        
+        if($token == NULL) {
+            echo 'nullllllllllllllll';
         }
+            
+        
         return $app['twig']->render('login_form.html.twig', array(
                     'error' => $app['security.last_error']($request),
-                    'last_username' => $app['session']->get('_security.last_username'),
+                    'last_username' =>
+                    $app['session']->get('_security.last_username'),
         ));
     }
 

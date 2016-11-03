@@ -1,0 +1,35 @@
+{% extends "public_layout.html.twig" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+    <link href="{{ app.request.basepath }}/css/contact.css" rel="stylesheet">
+
+    <div class="row">
+
+        <div class="col-md-7 well">
+            <h2>Nous contacter</h2>
+            <form>
+                <div class="form-group">         
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Prenom">
+                </div>
+                <div class="form-group">           
+                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="4" placeholder="Message"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </form>
+        </div>
+
+        <div class="col-md-1"></div>
+
+        <div class="col-md-4 well">
+            <h4>Tel: <strong>0032 0444 44 44</strong></h4>
+           <h4>Adresse: <strong>Rue de la fête, 23. <br>5120 Namur</strong> </h4>
+        </div>
+    </div>
+
+{% endblock %}

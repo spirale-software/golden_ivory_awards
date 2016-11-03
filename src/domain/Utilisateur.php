@@ -4,18 +4,18 @@ use \Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @OVERVIEW: Utilisateur est une classe représentant un utilisateur du système.
  */
-class Utilisateur implements UserInterface{
+class Utilisateur implements UserInterface {
     
      /**
      * id du de l'utilisateur.
      *
      * @var integer
      */
-    private $id_usr;
+    private $id;
     
      /**
      * role occupé par l'utilisateur
-      * values : USR_ROLE or ADMIN_ROLE.
+      * values : ROLE_USR or ROLE_ADMIN.
      *
      * @var string
      */
@@ -45,8 +45,8 @@ class Utilisateur implements UserInterface{
     private $salt;
     
    
-    function getId_usr() {
-        return $this->id_usr;
+    function getId() {
+        return $this->id;
     }
 
     function getRole() {
@@ -61,6 +61,9 @@ class Utilisateur implements UserInterface{
         return $this->email;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     function getPassword() {
         return $this->password;
     }
@@ -72,8 +75,8 @@ class Utilisateur implements UserInterface{
         return $this->salt;
     }
 
-    function setId_usr($id_usr) {
-        $this->id_usr = $id_usr;
+    function setId($id) {
+        $this->id = $id;
     }
 
     function setRole($role) {

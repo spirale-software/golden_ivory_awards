@@ -5,6 +5,36 @@ include_once __DIR__.'/../form/type/categorieType.php';
 
 class HomeController {
     
+    public function contact_action(Application $app) {
+        
+        return $app['twig']->render('contact.html.twig');
+        
+    }
+    
+    /**
+     * allow to show detail about a nomine. 
+     * 
+     * @param Application $app
+     * @param int $id : represent the id of the given nomine.
+     * 
+     * return nomine_detail.html.twig
+     */
+    public function nomine_detail_action(Application $app, $id) {
+
+        $_nomine = $app['dao.nomine']->find_nomine_by_ID($id);
+        $nomine = array_shift($_nomine);
+        $categories = $app['dao.categorie']->findAll();
+
+        $libelle_categorie = $this->find_libelle_by_ID(
+                $categories, $nomine->getCategorieID());
+        $nomine->setLibelleCategorie($libelle_categorie);
+
+        return $app['twig']->render('nomine_detail.html.twig', array(
+                    'nomine' => $nomine,
+                    'title' => 'Detail'));
+    }
+
+    
      /**
      * Show all nomines who discuss a given honnor.
      * 
@@ -15,18 +45,11 @@ class HomeController {
      */
     public function nomine_honneur_action(Application $app, $id) {
         
-    }
-    
-    /**
-     * Show detail to a given nomine
-     * 
-     * @param Application $app
-     * @param integer $id
-     * 
-     * @return  detail_nomine.html.twig
-     */
-    public function nomine_detail_action(Application $app, $id) {
+        $nomines = $app['dao.nomine']->find_nomine_by_categorie($id);
         
+        return $app['twig']->render('nomine_all.html.twig', array(
+                    'title' => 'nomines',
+                    'nomines' => $nomines));   
     }
     
     /**
@@ -36,6 +59,7 @@ class HomeController {
      * @return index.html.twig
      */
     public function index_action(Application $app) {
+        
         
         return $app['twig']->render('index.html.twig');
     }
@@ -73,8 +97,21 @@ class HomeController {
      */
     public function honneur_action(Application $app) {
         
+        
+        $honneurs = $app['dao.prix']->find_all();
+        $categories = $app['dao.categorie']->findAll();
+        
+        foreach ($honneurs as  $honneur) { 
+           
+            $libelle = $this->find_libelle_by_ID(
+                    $categories, $honneur->getCategorieID());
+                       
+            $honneur->setLibelleCategorie($libelle);
+        }
+        
         return $app['twig']->render('honneur.html.twig', array(
-                    'title' => 'Honneur'));
+                    'title' => 'Honneur',
+                    'honneurs' => $honneurs));
     }
     
     /**

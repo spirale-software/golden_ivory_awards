@@ -21,15 +21,16 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider());
+
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
         'secured' => array(
-            'pattern' => '^/', 
-            'anonymous' => true, 
-            'logout' => true,
+            'pattern' => '^/admin/',
+            //'anonymous' => true, 
+            'logout' => array('logout_path' => '/admin/logout', 'invalidate_session' => true),
             'form' => array(
                 'login_path' => '/login', 
-                'check_path' => '/login_check'),
+                'check_path' => '/admin/login_check'),
             'users' => $app->share(function () use ($app) {
                 return new G_I_A\DAO\UtilisateurDAO($app['db']);
             }),

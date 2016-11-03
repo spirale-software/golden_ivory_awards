@@ -8,6 +8,7 @@ class AdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('prenom', 'text')
             ->add('username', 'text')
             ->add('password', array(
                 'type'            => 'password',
