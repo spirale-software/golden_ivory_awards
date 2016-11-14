@@ -19,18 +19,6 @@
      */
      private $libelle;
      
-     /**
-     * id de la photo représentant la Categorie.
-     *
-     * @var integer
-     */
-     private $photoID;
-     
-     
-     function getPhotoID() {
-         return $this->photoID;
-     }
-     
      function getId() {
          return $this->id;
      }
@@ -45,9 +33,5 @@
 
      function setLibelle($libelle) {
          $this->libelle = $libelle;
-     }
-     
-     function setPhotoID($photoID) {
-         $this->photoID = $photoID;
      }
  }

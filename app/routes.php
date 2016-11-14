@@ -38,7 +38,7 @@ $app->match('/partenaires',
 
 /*************************** Admin Routes *************************************/
  
-        /******************  Nomine ******************************/         
+            /******************  Nomine ******************************/         
 
 /* Admin home page */
 $app->match('/admin/accueil', 
@@ -65,9 +65,7 @@ $app->match('/admin/nomine/delete/{id}',
         'G_I_A\Controller\AdminController::delete_nomine_action')
         ->bind('nomine_delete');
 
-
-        /******************  Categorie ******************************/
-
+            /********************** Categorie *********************/
 /* return all categories */
 $app->get('/admin/categorie/all', 
         'G_I_A\Controller\AdminController::all_categorie_action')
@@ -83,8 +81,7 @@ $app->match('/admin/categorie/edit/{id}',
         'G_I_A\Controller\AdminController::edit_categorie_action')
         ->bind('categorie_edit');
 
-        /******************  Login && Contact ******************************/
-
+            /****************** Login && Contact *******************/
 /* login */
 $app->match('/login', 
         'G_I_A\Controller\AdminController::login_action')
@@ -95,7 +92,7 @@ $app->match('/contact',
         'G_I_A\Controller\HomeController::contact_action')
         ->bind('contact');
 
-  /******************  Honneur ******************************/
+            /********************* Honneur ***********************/
 
 /* return all honneur */
 $app->get('/admin/honneur/all', 

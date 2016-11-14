@@ -18,14 +18,14 @@ class Vote {
      *
      * @var integer
      */
-    private $nomineID;
+    private $nomine_fk;
 
     /**
      * utilisateur qui a donné son vote à un nominé.
      *
      * @var integer
      */
-    private $userID;
+    private $user_fk;
 
     
     function getId() {

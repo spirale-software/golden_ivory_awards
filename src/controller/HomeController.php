@@ -96,18 +96,8 @@ class HomeController {
      * @return honneur.html.twig
      */
     public function honneur_action(Application $app) {
-        
-        
-        $honneurs = $app['dao.prix']->find_all();
-        $categories = $app['dao.categorie']->findAll();
-        
-        foreach ($honneurs as  $honneur) { 
-           
-            $libelle = $this->find_libelle_by_ID(
-                    $categories, $honneur->getCategorieID());
-                       
-            $honneur->setLibelleCategorie($libelle);
-        }
+            
+        $honneurs = $app['dao.honneur']->find_all();
         
         return $app['twig']->render('honneur.html.twig', array(
                     'title' => 'Honneur',

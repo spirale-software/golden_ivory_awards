@@ -6,10 +6,10 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
 include_once __DIR__ . '/../form/type/categorieType.php';
-include_once __DIR__ . '/../form/type/PrixType.php';
+include_once __DIR__ . '/../form/type/HonneurType.php';
 include_once __DIR__ . '/../form/type/nomineType.php';
 include_once __DIR__ . '/../domain/Nomine.php';
-include_once __DIR__ . '/../domain/Prix.php';
+include_once __DIR__ . '/../domain/Honneur.php';
 
 class AdminController {
 
@@ -23,19 +23,19 @@ class AdminController {
      */
     public function add_honneur_action(Application $app, Request $request) {
 
-        $prix = new \G_I_A\Domain\Prix();
+        $honneur = new \G_I_A\Domain\Honneur();
         $honneur_form = $app['form.factory']->create(
-                new \G_I_A\Form\Type\PrixType(), $prix);
+                new \G_I_A\Form\Type\HonneurType(), $honneur);
 
         $honneur_form->handleRequest($request);
 
         if ($honneur_form->isSubmitted() && $honneur_form->isValid()) {
 
-            $fileName = $this->savePhoto($prix);
+            $fileName = $this->savePhoto($honneur);
 
-            $prix->setPhotoID($fileName);
+            $honneur->setFileName($fileName);
 
-            $app['dao.prix']->save($prix);
+            $app['dao.honneur']->save($honneur);
 
             $app['session']->getFlashBag()->add(
                     'success', "L'honneur a été bien crée.");
@@ -56,16 +56,12 @@ class AdminController {
      */
     public function all_honneur_action(Application $app) {
 
-        $honneurs = $app['dao.prix']->find_all();
-        $categories = $app['dao.categorie']->findAll();
+        $honneurs = $app['dao.honneur']->find_all();
 
         foreach ($honneurs as $honneur) {
 
-            $libelle = $this->find_libelle_by_ID(
-                    $categories, $honneur->getCategorieID());
-
-
-            $honneur->setLibelleCategorie($libelle);
+            $fileName = $app['dao.image']->find_by_honneur($honneur->getId());
+            $honneur->setFileName($fileName);
         }
 
         return $app['twig']->render('admin_honneur_all.html.twig', array(
@@ -84,8 +80,7 @@ class AdminController {
      */
     public function delete_honneur_action(Application $app, $id) {
 
-        $app['dao.prix']->delete(intval($id));
-
+        $app['dao.honneur']->delete(intval($id));
 
         return $this->all_honneur_action($app);
     }
@@ -114,7 +109,7 @@ class AdminController {
     public function all_nomines_action(Application $app) {
 
         $nomines = $app['dao.nomine']->find_all_nomine();
-        $categories = $app['dao.categorie']->findAll();
+        $categories = $app['dao.categorie']->find_all();
 
         foreach ($nomines as $nomine) {
 
@@ -142,7 +137,7 @@ class AdminController {
 
         $_nomine = $app['dao.nomine']->find_nomine_by_ID($id);
         $nomine = array_shift($_nomine);
-        $categories = $app['dao.categorie']->findAll();
+        $categories = $app['dao.categorie']->find_all();
 
         $libelle_categorie = $this->find_libelle_by_ID(
                 $categories, $nomine->getCategorieID());
@@ -263,7 +258,7 @@ class AdminController {
      */
     public function all_categorie_action(Application $app) {
 
-        $categories = $app['dao.categorie']->findAll();
+        $categories = $app['dao.categorie']->find_all();
         return $app['twig']->render('admin_categorie_all.html.twig', array(
                     'categories' => $categories,
                     'active' => 4));
@@ -343,7 +338,7 @@ class AdminController {
         $token = $app['security.token_storage']->getToken();
         
         if($token == NULL) {
-            echo 'nullllllllllllllll';
+            echo 'login_action';
         }
             
         
@@ -381,7 +376,7 @@ class AdminController {
      */
     private function savePhoto($object) {
 
-        $file = $object->getPhotoID();
+        $file = $object->getFileName();
         $id_photo = uniqid();
         $fileName = $id_photo . '.' . $file->guessExtension();
         $directory = __DIR__ . '/../../images/';

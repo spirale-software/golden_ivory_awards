@@ -74,12 +74,12 @@
         </div>
 
         <div class="form-group">
-            {{ form_label(nomine_form.photoID, 'Photo', { 'label_attr':  {
+            {{ form_label(nomine_form.fileName, 'Photo', { 'label_attr':  {
             'class': 'col-sm-4 control-label'
             }}) }}
             <div class="col-sm-6">
-                {{ form_errors(nomine_form.photoID) }}
-                {{ form_widget(nomine_form.photoID, { 'attr':  { 
+                {{ form_errors(nomine_form.fileName) }}
+                {{ form_widget(nomine_form.fileName, { 'attr':  { 
                     'name': 'fileToUpload', 'id':'fileToUpload'
                 }}) }}
             </div>

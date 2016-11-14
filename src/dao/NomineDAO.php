@@ -1,6 +1,4 @@
-<?php
-
-namespace G_I_A\DAO;
+<?php namespace G_I_A\DAO;
 
 include_once __DIR__ . '/../domain/Nomine.php';
 include_once __DIR__ . '/DAO.php';
@@ -23,10 +21,9 @@ class NomineDAO extends DAO {
     public function save($nomine) {
         $nomine_to_insert = array(
             'nom' => $nomine->getNom(),
-            'categorieID' => $nomine->getCategorieID(),
+            'categorie_fk' => $nomine->getCategorie()->getID(),
             'descriptif' => $nomine->getDescriptif(),
-            'actualite' => $nomine->getActualite(),
-            'photoID' => $nomine->getPhotoID());
+            'actualite' => $nomine->getActualite());
         try {
             $this->getDb()->insert('t_nomine', $nomine_to_insert);
         } catch (Exception $ex) {
@@ -34,9 +31,7 @@ class NomineDAO extends DAO {
                     . "le nominé n'a pas pu être inséré dans la BD";
             throw new DAOException($message);
         }
-    }
-    
-    
+    }  
 
     /**
      * Delete the variable $nomine in the DB.
@@ -47,7 +42,7 @@ class NomineDAO extends DAO {
      */
     public function delete(\G_I_A\Domain\Nomine $nomine) {
 
-        $nomine_to_delete = array('id' => $nomine->getId());
+        $nomine_to_delete = array('nomine_id' => $nomine->getId());
                
         try {
             $this->getDb()->delete('t_nomine', $nomine_to_delete);
@@ -69,10 +64,9 @@ class NomineDAO extends DAO {
 
         $nomineData = array(
             'nom' => $nomine->getNom(),
-            'categorieID' => $nomine->getCategorieID(),
+            'categorie_fk' => $nomine->getCategorie()->getID(),
             'descriptif' => $nomine->getDescriptif(),
-            'actualite' => $nomine->getActualite(),
-            'photoId' => $nomine->getPhotoID());
+            'actualite' => $nomine->getActualite());
 
         $nomine_to_update = array('id' => $nomine->getId());
 
@@ -134,16 +128,28 @@ class NomineDAO extends DAO {
      * @return \G_I_A\Domain\Nomine
      */
     protected function buildDomainObject($row) {
+        
+        return $this->builDomain($row);
+    }
+    
+    public static function builDomain($row) {
+        
         $nomine = new \G_I_A\Domain\Nomine();
  
-        $nomine->setId($row['id']);
+        $nomine->setId($row['nomine_id']);
         $nomine->setNom($row['nom']);
-        $nomine->setCategorieID($row['categorieID']); 
+        
+        // Chercher la categorie 
+        $categorie_id = $row['categorie_fk'];
+        $sql = 'SELECT * FROM categorie WHERE categorie_id = ?';
+        $categorie_row = $this->getDb()->fetchAssoc($sql, $categorie_id);      
+        $categorie = CategorieDAO::buildDomain($categorie_row);
+        
+        $nomine->setCategorie($categorie); 
         $nomine->setDescriptif($row['descriptif']);
         $nomine->setActualite($row['actualite']);
-        $nomine->setPhotoID($row['photoID']);
 
-        return $nomine;
+        return $nomine;      
     }
 
     /**
@@ -163,7 +169,7 @@ class NomineDAO extends DAO {
             $array_of_nomines = array();
 
             foreach ($nomines as $row) {
-                $id = $row['id'];
+                $id = $row['nomine_id'];
                 $array_of_nomines[$id] = $this->buildDomainObject($row);
             }
 

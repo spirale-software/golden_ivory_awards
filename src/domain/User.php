@@ -1,10 +1,11 @@
 <?php namespace G_I_A\Domain;
+
 use \Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @OVERVIEW: Utilisateur est une classe représentant un utilisateur du système.
  */
-class Utilisateur implements UserInterface {
+class User implements UserInterface {
     
      /**
      * id du de l'utilisateur.
@@ -40,7 +41,7 @@ class Utilisateur implements UserInterface {
      *
      * @var string
      */
-    private $password;
+    private $pwd;
     
     private $salt;
     
@@ -65,7 +66,7 @@ class Utilisateur implements UserInterface {
      * {@inheritDoc}
      */
     function getPassword() {
-        return $this->password;
+        return $this->pwd;
     }
 
     /**
@@ -91,8 +92,8 @@ class Utilisateur implements UserInterface {
         $this->email = $email;
     }
 
-    function setPassword($password) {
-        $this->password = $password;
+    function setPwd($pwd) {
+        $this->pwd = $pwd;
     }
 
     function setSalt($salt) {

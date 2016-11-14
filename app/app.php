@@ -4,8 +4,9 @@ use Symfony\Component\Debug\ExceptionHandler;
 
 include_once __DIR__.'/../src/dao/CategorieDAO.php';
 include_once __DIR__.'/../src/dao/NomineDAO.php';
-include_once __DIR__.'/../src/dao/UtilisateurDAO.php';
-include_once __DIR__.'/../src/dao/PrixDAO.php';
+include_once __DIR__.'/../src/dao/UserDAO.php';
+include_once __DIR__.'/../src/dao/HonneurDAO.php';
+include_once __DIR__.'/../src/dao/ImageDAO.php';
 
 // Register global error and exception handlers
 ErrorHandler::register();
@@ -22,7 +23,7 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider());
 
-$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+/*$app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
         'secured' => array(
             'pattern' => '^/admin/',
@@ -32,13 +33,13 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
                 'login_path' => '/login', 
                 'check_path' => '/admin/login_check'),
             'users' => $app->share(function () use ($app) {
-                return new G_I_A\DAO\UtilisateurDAO($app['db']);
+                return new G_I_A\DAO\UserDAO($app['db']);
             }),
         ),
     ),
     'security.role_hierarchy' => array('ROLE_ADMIN' => array('ROLE_USER')),
     'security.access_rule' => array(array('^/admin', 'ROLE_ADMIN'))
-));
+));*/
 
 
 // Register services
@@ -48,11 +49,14 @@ return new G_I_A\DAO\CategorieDAO($app['db']);
 $app['dao.nomine'] = $app->share(function ($app) {
 return new G_I_A\DAO\NomineDAO($app['db']);
 });  
-$app['dao.utilisateur'] = $app->share(function ($app) {
-return new G_I_A\DAO\UtilisateurDAO($app['db']);
+$app['dao.user'] = $app->share(function ($app) {
+return new G_I_A\DAO\UserDAO($app['db']);
 });  
-$app['dao.prix'] = $app->share(function ($app) {
-return new G_I_A\DAO\PrixDAO($app['db']);
+$app['dao.honneur'] = $app->share(function ($app) {
+return new G_I_A\DAO\HonneurDAO($app['db']);
+});  
+$app['dao.image'] = $app->share(function ($app) {
+return new G_I_A\DAO\ImageDAO($app['db']);
 });  
 
 //Globals variables

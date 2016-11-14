@@ -15,10 +15,10 @@ class NomineType extends AbstractType {
         $builder
                 ->add('nom', 'text')
                 ->add('categorieID', ChoiceType::class, array(
-                    'choices' => $this->getArray($GLOBALS['categorieDAO']->findAll())))
+                    'choices' => $this->getArray($GLOBALS['categorieDAO']->find_all())))
                 ->add('descriptif', 'textarea')
                 ->add('actualite', 'textarea')
-                ->add('photoID', FileType::class, array('required' => false));
+                ->add('fileName', FileType::class, array('required' => false));
     }
 
     public function getArray($categories) {

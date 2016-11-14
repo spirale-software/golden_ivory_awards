@@ -15,9 +15,9 @@
 
             {% for honneur in honneurs %}
                 <tr>
-                    <td><img src="{{ app.request.basepath }}/../images/{{honneur.photoID}}" width="50"></td>
+                    <td><img src="{{ app.request.basepath }}/../images/{{honneur.fileName}}" width="50"></td>
                     <td>{{honneur.libelle}}</td>
-                    <td>{{honneur.libelleCategorie}}</td>
+                    <td>{{honneur.categorie.libelle}}</td>
                     <td> 
                         <a href= "{*{ path('honneur_detail', {'id':honneur.id}) }*}">
                             <button class="btn btn-info" type="button" disabled="disabled">Détail</button>

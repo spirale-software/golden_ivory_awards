@@ -5,7 +5,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType; 
 
-class PrixType extends AbstractType {
+class HonneurType extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
@@ -13,8 +13,8 @@ class PrixType extends AbstractType {
                 ->add('libelle', 'text')
                 ->add('descriptif', 'textarea')
                 ->add('categorieID', ChoiceType::class, array(
-                    'choices' => $this->getArray($GLOBALS['categorieDAO']->findAll())))
-                ->add('photoID', FileType::class, array('required' => false));
+                    'choices' => $this->getArray($GLOBALS['categorieDAO']->find_all())))
+                ->add('fileName', FileType::class, array('required' => false));
     }
     
       public function getArray($categories) {

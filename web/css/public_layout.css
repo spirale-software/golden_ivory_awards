@@ -18,26 +18,8 @@ a {
     color: white;
 }
 
-p a  {
-    color: white;
-    text-decoration: underline;
-}
-
 .container-style {
-    width: 70%;
-}
-
-.carrousel-style {
-    height: 400px;
-}
-
-.caption-style {
-    padding-bottom: 170px;
-}
-
-.thumbail-style {
-    opacity: 0.8;
-
+    width: 70%; 
 }
 
 #footer {
@@ -50,5 +32,4 @@ p a  {
     right:0;
     border-radius: 7px;
     opacity: 0.7;
-
 }

@@ -29,7 +29,7 @@ public function find_libelle($id) {
  * @return ID
  */
 public function find_ID($libelle) {
-        $sql = "SELECT id FROM t_categorie where libelle = ? ";
+        $sql = "SELECT categorie_id FROM t_categorie where libelle = ? ";
         
         $result = $this->getDb()->fetchAssoc($sql, array($libelle));     
         
@@ -38,48 +38,66 @@ public function find_ID($libelle) {
 
     public function save($categorie) {
         $categorieData = array(
-            'libelle' => $categorie->getLibelle(),
-            'photoID' => $categorie->getPhotoID());
+            'libelle' => $categorie->getLibelle());
         $this->getDb()->insert('t_categorie', $categorieData);
     }
     
      public function edit($categorie) {
          $categorieData = array(
-             'id'=> $categorie->getID(),
-             'libelle' => $categorie->getLibelle(),
-             'photoID' => $categorie->getPhotoID()
+             'categorie_id'=> $categorie->getID(),
+             'libelle' => $categorie->getLibelle()
          );
          
-         $categorie_to_update = array('id' => $categorie->getId());
+         $categorie_to_update = array('categorie_id' => $categorie->getId());
          
         $this->getDb()->update('t_categorie', $categorieData, $categorie_to_update);
     }
     
-    public function delete_categorie($id_categorie) {
+    public function delete_categorie($categorie_id) {
         $this->getDb()->delete('t_categorie', array(
-            'id' => $id_categorie));
+            'id' => $categorie_id));
     }
     
-    public function findAll() {
+    public function find_all() {
         $sql = 'SELECT * FROM t_categorie ORDER BY libelle';
         $result = $this->getDb()->fetchAll($sql);
         
         $categories = array();
         foreach ($result as $row) {
-            $categorie_id = $row['id'];
+            $categorie_id = $row['categorie_id'];
             $categorie = $this->buildDomainObject($row);
             $categories[$categorie_id] = $categorie;
         }
         return $categories;
     }
-
-    protected function buildDomainObject($row) {
+    
+    public function find_by_ID($categorie_id) {
+        $sql = 'SELECT * FROM t_categorie WHERE categorie_id = ?'
+                . ' ORDER BY libelle';
+        $result = $this->getDb()->fetchAssoc($sql, array($categorie_id));
+        
+        $categories = array();
+        foreach ($result as $row) {
+            $categorie_id = $row['categorie_id'];
+            $categorie = $this->buildDomainObject($row);
+            $categories[$categorie_id] = $categorie;
+        }
+        return $categories;
+    }
+    
+    public static  function builDomain($categorie_row) {
+        
         $categorie = new \G_I_A\Domain\Categorie();
-        $categorie->setId($row['id']);
-        $categorie->setLibelle($row['libelle']);
-        $categorie->setPhotoID($row['photoID']);
+        $categorie->setId($categorie_row['categorie_id']);
+        $categorie->setLibelle($categorie_row['libelle']);
         
         return $categorie;
+    }
+
+
+    protected function buildDomainObject($row) {
+        
+        return $this->builDomain($row);
     }
 }
 
