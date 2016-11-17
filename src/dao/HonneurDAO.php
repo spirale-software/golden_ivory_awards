@@ -72,7 +72,7 @@ class HonneurDAO extends DAO {
         /* Supprimer également l'image(dans la table image) correspondante à cet
           honneur. */
         $sql = 'DELETE FROM t_image WHERE honneur_fk = ?';
-        $this->getDb()->executeQuery($sql, array('honneur_fk' => $id_honneur));
+        $this->getDb()->executeQuery($sql, array($id_honneur));
 
         try {
             $this->getDb()->delete('t_honneur', $honneur_to_delete);

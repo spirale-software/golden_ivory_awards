@@ -1,4 +1,6 @@
-<?php namespace G_I_A\DAO;
+<?php
+
+namespace G_I_A\DAO;
 
 include_once __DIR__ . '/../domain/Nomine.php';
 include_once __DIR__ . '/DAO.php';
@@ -21,36 +23,39 @@ class NomineDAO extends DAO {
     public function save($nomine) {
         $nomine_to_insert = array(
             'nom' => $nomine->getNom(),
-            'categorie_fk' => $nomine->getCategorie()->getID(),
+            'categorie_fk' => $nomine->getCategorieID(),
             'descriptif' => $nomine->getDescriptif(),
             'actualite' => $nomine->getActualite());
         try {
             $this->getDb()->insert('t_nomine', $nomine_to_insert);
+
+            //Inserer l'image ce nomine dans la BD.
+            $image_to_insert = array(
+                'fileName' => $nomine->getFileName(),
+                'nomine_fk' => $this->getDb()->lastInsertId()
+            );
+            $this->getDb()->insert('t_image', $image_to_insert);
         } catch (Exception $ex) {
             $message = "dao.package -> NomineDAO.class -> save.method :: "
                     . "le nominé n'a pas pu être inséré dans la BD";
             throw new DAOException($message);
         }
-    }  
+    }
 
     /**
      * Delete the variable $nomine in the DB.
      *
      * @param Nomine $nomine. The nomine to delete in the DB.
-     *
-     * @return an exception if there is any problem with the suppression.
      */
     public function delete(\G_I_A\Domain\Nomine $nomine) {
-
+      
+        // Supprimer l'image correspondante à ce nominé dans la BD.         
+        $image_to_delete = array('nomine_fk' => $nomine->getId());
+        $this->getDb()->delete('t_image', $image_to_delete);
+        
+        // Suppremer le nomine concerné dans la BD.
         $nomine_to_delete = array('nomine_id' => $nomine->getId());
-               
-        try {
-            $this->getDb()->delete('t_nomine', $nomine_to_delete);
-        } catch (Exception $ex) {
-            $message = "dao.package -> NomineDAO.class -> delete.method :: "
-                    . "le nominé n'a pas pu être supprimé de la BD";
-            throw new DAOException($message);
-        }
+        $this->getDb()->delete('t_nomine', $nomine_to_delete);
     }
 
     /**
@@ -62,21 +67,27 @@ class NomineDAO extends DAO {
      */
     public function edit(\G_I_A\Domain\Nomine $nomine) {
 
+        // Modifier la photo de ce nomine si nécessaire.
+        $sql = 'SELECT fileName FROM t_image WHERE nomine_fk = ?';
+        $_fileName = $this->getDb()->fetchAssoc($sql, array($nomine->getId()));
+        $current_fileName = array_shift($_fileName);
+        if ($nomine->getFileName() != $current_fileName) {
+            
+            $imageData = array(
+                'fileName' => $nomine->getFileName()
+            );
+            $image_to_update = array('nomine_fk' => $nomine->getId());
+            $this->getDb()->update('t_image', $imageData , $image_to_update);
+        }
+        
+        // Modifier les données du nominé proprement dites.
         $nomineData = array(
             'nom' => $nomine->getNom(),
-            'categorie_fk' => $nomine->getCategorie()->getID(),
+            'categorie_fk' => $nomine->getCategorieID(),
             'descriptif' => $nomine->getDescriptif(),
             'actualite' => $nomine->getActualite());
-
-        $nomine_to_update = array('id' => $nomine->getId());
-
-        try {
-            $this->getDb()->update('t_nomine', $nomineData, $nomine_to_update);
-        } catch (Exception $ex) {
-            $message = "dao.package -> NomineDAO.class -> edit.method :: "
-                    . "le nominé n'a pas pu être mis à jour dan la BD";
-            throw new DAOException($message);
-        }
+        $nomine_to_update = array('nomine_id' => $nomine->getId());
+        $this->getDb()->update('t_nomine', $nomineData, $nomine_to_update);
     }
 
     /**
@@ -86,10 +97,10 @@ class NomineDAO extends DAO {
      */
     public function find_all_nomine() {
 
-            $sql = "SELECT * FROM t_nomine";
-            $attribute = 'All';
-            
-            return $this->find($sql, $attribute);
+        $sql = "SELECT * FROM t_nomine";
+        $attribute = 'All';
+
+        return $this->find($sql, $attribute);
     }
 
     /**
@@ -100,7 +111,7 @@ class NomineDAO extends DAO {
      */
     public function find_nomine_by_ID($id_nomine) {
 
-        $sql = "SELECT * FROM t_nomine WHERE id = " . $id_nomine;
+        $sql = "SELECT * FROM t_nomine WHERE nomine_id = " . $id_nomine;
         $attribute = 'ID';
 
         return $this->find($sql, $attribute);
@@ -128,28 +139,58 @@ class NomineDAO extends DAO {
      * @return \G_I_A\Domain\Nomine
      */
     protected function buildDomainObject($row) {
-        
-        return $this->builDomain($row);
-    }
-    
-    public static function builDomain($row) {
-        
+
+        //return $this->builDomain($row);
+
         $nomine = new \G_I_A\Domain\Nomine();
- 
-        $nomine->setId($row['nomine_id']);
-        $nomine->setNom($row['nom']);
-        
+
+        $nomine_id = $row['nomine_id'];
+
         // Chercher la categorie 
         $categorie_id = $row['categorie_fk'];
-        $sql = 'SELECT * FROM categorie WHERE categorie_id = ?';
-        $categorie_row = $this->getDb()->fetchAssoc($sql, $categorie_id);      
-        $categorie = CategorieDAO::buildDomain($categorie_row);
-        
-        $nomine->setCategorie($categorie); 
+        $sql = 'SELECT * FROM t_categorie WHERE categorie_id = ?';
+        $categorie_row = $this->getDb()->fetchAssoc($sql, array($categorie_id));
+        $categorie = \G_I_A\DAO\CategorieDAO::builDomain($categorie_row);
+
+        // Chercher l'image correspondante à ce nomine.
+        $sql = 'SELECT fileName FROM t_image WHERE nomine_fk = ?';
+        $_fileName = $this->getDb()->fetchAssoc($sql, array($nomine_id));
+        $fileName = array_shift($_fileName);
+
+        $nomine->setId($nomine_id);
+        $nomine->setNom($row['nom']);
+        $nomine->setCategorie($categorie);
         $nomine->setDescriptif($row['descriptif']);
         $nomine->setActualite($row['actualite']);
+        $nomine->setFileName($fileName);
 
-        return $nomine;      
+        return $nomine;
+    }
+
+    public static function builDomain($row) {
+
+        $nomine = new \G_I_A\Domain\Nomine();
+
+        $nomine_id = $row['nomine_id'];
+
+        // Chercher la categorie 
+        $categorie_id = $row['categorie_fk'];
+        $sql = 'SELECT * FROM t_categorie WHERE categorie_id = ?';
+        $categorie_row = $this->getDb()->fetchAssoc($sql, $categorie_id);
+        $categorie = \G_I_A\DAO\CategorieDAO::builDomain($categorie_row);
+
+        // Chercher l'image de cette categorie
+        $sql = 'SELECT * FROM t_image WHERE nomine_fk = ?';
+        $image_row = $this->getDb()->fetchAssoc($sql, array($nomine_id));
+
+        $nomine->setId($nomine_id);
+        $nomine->setNom($row['nom']);
+        $nomine->setCategorie($categorie);
+        $nomine->setDescriptif($row['descriptif']);
+        $nomine->setActualite($row['actualite']);
+        $nomine->setFileName($image_row['fileName']);
+
+        return $nomine;
     }
 
     /**

@@ -91,7 +91,7 @@ class Nomine {
         $this->actualite = $actualite;
     }
 
-    function setCategorie(G_I_A\Domain\Categorie $categorie) {
+    function setCategorie(\G_I_A\Domain\Categorie $categorie) {
         $this->categorie = $categorie;
     }  
     

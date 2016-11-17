@@ -109,15 +109,15 @@ class AdminController {
     public function all_nomines_action(Application $app) {
 
         $nomines = $app['dao.nomine']->find_all_nomine();
-        $categories = $app['dao.categorie']->find_all();
+        //$categories = $app['dao.categorie']->find_all();
 
-        foreach ($nomines as $nomine) {
+        /*foreach ($nomines as $nomine) {
 
             $libelle_categorie = $this->find_libelle_by_ID(
                     $categories, $nomine->getCategorieID());
 
             $nomine->setLibelleCategorie($libelle_categorie);
-        }
+        }*/
 
         return $app['twig']->render('admin_nomine_all.html.twig', array(
                     'nomines' => $nomines,
@@ -137,11 +137,6 @@ class AdminController {
 
         $_nomine = $app['dao.nomine']->find_nomine_by_ID($id);
         $nomine = array_shift($_nomine);
-        $categories = $app['dao.categorie']->find_all();
-
-        $libelle_categorie = $this->find_libelle_by_ID(
-                $categories, $nomine->getCategorieID());
-        $nomine->setLibelleCategorie($libelle_categorie);
 
         return $app['twig']->render('admin_nomine_detail.html.twig', array(
                     'title' => '',
@@ -163,27 +158,28 @@ class AdminController {
         $_nomine = $app['dao.nomine']->find_nomine_by_ID($id);
         $nomine = array_shift($_nomine);
 
-        $photoID = $nomine->getPhotoID();
-        $nomine->setPhotoID(NULL);
-
-        $libelle = $app['dao.categorie']->find_libelle(
-                $nomine->getCategorieID());
-        $nomine->setLibelleCategorie($libelle);
-
+        $old_fileName = $nomine->getFileName();
+        $nomine->setFileName(NULL);
+     
         $nomine_form = $app['form.factory']->create(
                 new \G_I_A\Form\Type\NomineType(), $nomine);
         $nomine_form->handleRequest($request);
 
         if ($nomine_form->isSubmitted() && $nomine_form->isValid()) {
-
-            $libelle = $app['dao.categorie']->find_libelle(
-                    $nomine->getCategorieID());
-
-            $nomine->setLibelleCategorie($libelle);
-
-            $this->managePhoto($nomine, $photoID);
+            
+            if (is_null($nomine->getFileName())) {
+                $nomine->setFileName($old_fileName);
+            } else {              
+                $new_fileName = $this->savePhoto($nomine);
+                $nomine->setFileName($new_fileName);
+                
+                // Suppression de l'ancienne photo
+                $fileName = __DIR__ . '/../../images/'.$old_fileName;
+                unlink($fileName);
+            }
 
             $app['dao.nomine']->edit($nomine);
+            
             $app['session']->getFlashBag()->add(
                     'success', 'Le nominé a été bien modifié');
         }
@@ -211,11 +207,11 @@ class AdminController {
         $nomine_form->handleRequest($request);
 
         if ($nomine_form->isSubmitted() && $nomine_form->isValid()) {
-
+            
+            // Enregistrer la photo du nomine.
             $fileName = $this->savePhoto($nomine);
-
-            $nomine->setPhotoID($fileName);
-
+            $nomine->setFileName($fileName);
+ 
             $app['dao.nomine']->save($nomine);
 
             $app['session']->getFlashBag()->add(
@@ -385,19 +381,5 @@ class AdminController {
         return $fileName;
     }
 
-    /**
-     * 
-     * @param type $nomine
-     * @param type $photoID
-     */
-    private function managePhoto($nomine, $photoID) {
-
-        if (is_null($nomine->getPhotoID())) {
-            $nomine->setPhotoID($photoID);
-        } else {
-            $fileName = $this->savePhoto($nomine);
-            $nomine->setPhotoID($fileName);
-        }
-    }
 
 }

@@ -15,9 +15,9 @@
 
             {% for nomine in nomines%}
                 <tr>
-                    <td><img src="{{ app.request.basepath }}/../images/{{nomine.photoID}}" width="50"></td>
+                    <td><img src="{{ app.request.basepath }}/../images/{{nomine.fileName}}" width="50"></td>
                     <td>{{nomine.nom}}</td>
-                    <td>{{nomine.libelleCategorie}}</td>
+                    <td>{{nomine.categorie.libelle}}</td>
                     <td> 
                         <a href= "{{ path('nomine_detail', {'id':nomine.id}) }}">
                             <button class="btn btn-info" type="button">Détail</button>

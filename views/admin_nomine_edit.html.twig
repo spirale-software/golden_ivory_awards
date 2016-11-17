@@ -29,7 +29,7 @@
         <!-- liste des categories
         =============================================================-->
         <div class="form-group">
-            {{ form_label(nomine_form.categorieID, null, { 'label_attr':  {
+            {{ form_label(nomine_form.categorieID, 'Categorie', { 'label_attr':  {
             'class': 'col-sm-4 control-label'
             }}) }}
 
@@ -71,6 +71,20 @@
                 }}) }}
             </div>
         </div>
+            
+            <!-- Photo
+        =============================================================-->
+        <div class="form-group">
+            {{ form_label(nomine_form.fileName, 'Modifier photo', { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+            }}) }}
+            <div class="col-sm-6">
+                {{ form_errors(nomine_form.fileName) }}
+                {{ form_widget(nomine_form.fileName, { 'attr':  { 
+                    'name': 'fileToUpload', 'id':'fileToUpload'
+                }}) }}
+            </div>
+        </div>
 
         <!-- Boutton Submit
             =============================================================-->      
@@ -81,6 +95,4 @@
         </div>
         {{ form_end(nomine_form) }}
     </div>
-
-    <a class="right" href="{{ path('nomine_all') }}" >retour</a>
 {% endblock %}

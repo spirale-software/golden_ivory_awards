@@ -14,10 +14,24 @@
         <style type="text/css">
             body {
                 background-image: url('{{ app.request.basepath }}/../images/oscar.jpg');
-            }
+            }           
 
             p {
                 color:white;
+            }
+
+            #entete {
+                height:100px;
+                background-color: white;
+            }
+            
+            #entete h2 {
+                color: #EFD807;
+                padding-top: 25px;
+            }
+            
+            #entete-image {
+                padding-left: 30%;
             }
         </style>
         <!--[/Style]
@@ -26,10 +40,18 @@
 
     <body>      
 
-        <div class="container container-style" style="opacity:0.9;">
-
-            <nav class="navbar navbar-inverse">
-                <div class="container-fluid" style="background-color:white">
+        <div id="entete">
+            <div id="entete-image">
+                <img src="{{ app.request.basepath }}/../images/logo.png" width="100" class="navbar-left">
+                <h2> GOLDEN IVORY AWARDS</h2>
+            </div>
+        </div>
+                
+                
+                
+                
+                <nav class="navbar navbar-inverse">
+                <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -38,7 +60,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <img src="{{ app.request.basepath }}/../images/logo.png" width="125" class="navbar-left">
+
                         <a class="navbar-brand" href="{{ path('home') }}">
                             Golden Ivory Awards
                         </a>
@@ -54,6 +76,12 @@
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>
+                
+                
+                
+        <div class="container container-style" style="opacity:0.9;">
+
+            
 
         {% block content %}{% endblock %}
 
