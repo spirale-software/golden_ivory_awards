@@ -3,11 +3,13 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+    <!-- [STYLE] -->
     <style>
-        #qui-sommes-nous {
-            
+        .page-header {
+            border-bottom: solid;
         }
     </style>
+    <!-- [/STYLE] -->
     <link href="{{ app.request.basepath }}/css/index.css" rel="stylesheet">
 
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -61,16 +63,18 @@
         <div class="page-header">
             <h1>Qui sommes nous?</h1>
         </div>
-        <h2 class="well">LE COMITE GOLDEN IVORY AWARDS, SIS AU 21 RUE DE MALTE, 
-            78500 SARTROUVILLE (FRANCE), FUT CREE LE SAMEDI 26 MARS 2016. IL A 
-            POUR BUT DE FAVORISER LES ECHANGES CULTURELS EN EUROPE ET D’AIDER AU 
-            PROGRES ECONOMIQUE DE LA COTE D’IVOIRE PAR LA REALISATION DE PROJETS 
-            D’ORDRE SOCIAUX CULTURELS VISANT A RECOLTER DES FONDS POUR METTRE EN 
-            PLACE UN PROJET DE REINSERTION SOCIALE DES POPULATIONS DESCOLARISEES 
-            EN COTE D’IVOIRE. D’OU LE <strong>PROJET GOLDEN IVORY AWARDS</strong>
-            , CE DERNIER 
-            CONSISTANT EN UNE ACTION DE RECOMPENSE DES EXPLOITS DES POPULATIONS 
-            IVOIRIENNES VIVANT EN EUROPE.</h2>
+        <p>
+            Le comite <strong> GOLDEN IVORY AWARDS </strong>, 
+            sis au <em>21 rue de Malte, 78500 Sartrouville (France)</em>,
+            fut crée le Samedi 26 Mars 2016.<br><br>
+            Il a pour but de favoriser les échanges culturels en Europe et d'aider
+            au progrès économique de la Côte d'Ivoire par la réalisation de projet
+            d'ordre sociaux culturels visant à récolter des fonds pour mettre en 
+            place un projet de réinsertion sociale des populations déscolarisées 
+            en Côte d'Ivoire.<br><br>
+            D'ou le projet <strong>GOLDEN IVORY AWARDS</strong>, ce dernier consiste
+            en une action de récompense des exploits des populations ivoiriennes
+            vivant en Europe.</p>
 
 
 {% endblock %}

@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="page-header">
-        <h1 style="color:white;">Les candidats pour l'honneur: ...</h1>
+        <h1>Les candidats pour l'honneur: ...</h1>
     </div>
 
     {% for nomine in nomines%}
@@ -12,15 +12,15 @@
         <div class="row">
             <div class="col-xs-6 col-md-3">
                 <a href="{{ path('public_nomine_detail', {'id': nomine.id })}}" class="thumbnail">
-                    <img src="{{ app.request.basepath }}/../images/{{nomine.photoID}}" width="100%">
+                    <img src="{{ app.request.basepath }}/../images/{{nomine.fileName}}" width="100%">
                 </a>
             </div>
 
             <div class="col-xs-6 col-md-3">
                 <a href="{{ path('public_nomine_detail', {'id': nomine.id })}}">
-                    <h2 style="color: #fff"> {{nomine.nom}} </h2>
+                    <h2 style="color:black"> {{nomine.nom}} </h2>
                 </a>
-                <p style="color: #fff"> {{nomine.descriptif}} </p>
+                <p > {{nomine.descriptif}} </p>
             </div>
 
             <div class="col-xs-6 col-md-3" style="margin-top: 50px">

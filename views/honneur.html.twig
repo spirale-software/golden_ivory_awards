@@ -2,30 +2,31 @@
 
 {% block title %} {{ title }} {% endblock %}
 
-{% block content %}
+{% block content %}  
+
     <link href="{{ app.request.basepath }}/css/honneur.css" rel="stylesheet">
 
     <div class="page-header">
-        <h1 class="titre">Les Honneurs.<small>Toutes les récompenses à l'issue de cette cérémonie</small></h1>
+        <h1 class="">Les Honneurs.<small>Toutes les récompenses à l'issue de cette cérémonie</small></h1>
     </div> 
     {% for honneur in honneurs %}
 
         <div class="row">  
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <a href="{{ path('nomine_honneur', {'id': honneur.categorie.id })}}">
-                    <img src="{{ app.request.basepath }}/../images/{{honneur.fileName}}" width="100%">
+                    <img src="{{ app.request.basepath }}/../images/{{honneur.fileName}}" width="150">
                 </a>
             </div>
             <div class="col-md-8">
                 <a href="{{ path('nomine_honneur', {'id': honneur.categorie.id })}}" >
-                    <h1>{{honneur.libelle}}</h1> 
+                    <h2>{{honneur.libelle}}</h2> 
                 </a>
-                <h2> {{honneur.descriptif}}</h2>
+                <p> {{honneur.descriptif}}</p>
             </div>
         </div> <hr class="divider">
- 
+
     {% endfor %}
-    
+
     <div class="space"></div>
 
 {% endblock %}

@@ -4,8 +4,6 @@ body {
     background-size:cover  ;
 }
 
-
-
 li {
     color: white;
     padding-left: 10px;
@@ -17,16 +15,17 @@ a {
 
 .container-style {
     width: 70%; 
+    background-color: white;
+    padding-bottom: 35px;
 }
 
 #footer {
-    background:#292F33;
+    background:#221F1F;
     min-width: 100%;
-    height:100px;
+    height:150px;
     position:relative;
     bottom:0;
     left:0;
     right:0;
-    border-radius: 7px;
-    opacity: 0.7;
+    overflow: hidden;
 }

@@ -125,7 +125,7 @@ class NomineDAO extends DAO {
      */
     public function find_nomine_by_categorie($id_categorie) {
 
-        $sql = "SELECT * FROM t_nomine WHERE categorieID = "
+        $sql = "SELECT * FROM t_nomine WHERE categorie_fk = "
                 . $id_categorie;
         $attribute = 'Categorie';
 
