@@ -36,6 +36,11 @@ $app->match('/partenaires',
         'G_I_A\Controller\HomeController::partenaire_action')
         ->bind('partenaires');
 
+/* Qui sommes nous page */
+$app->match('/qui_sommes_nous', 
+        'G_I_A\Controller\HomeController::qui_sommes_nous_action')
+        ->bind('qui_sommes_nous');
+
 /*************************** Admin Routes *************************************/
  
             /******************  Nomine ******************************/         
@@ -81,7 +86,7 @@ $app->match('/admin/categorie/edit/{id}',
         'G_I_A\Controller\AdminController::edit_categorie_action')
         ->bind('categorie_edit');
 
-            /****************** Login && Contact *******************/
+            /****************** Login && Contact && Mail *******************/
 /* login */
 $app->match('/login', 
         'G_I_A\Controller\AdminController::login_action')

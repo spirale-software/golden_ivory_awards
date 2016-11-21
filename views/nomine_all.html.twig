@@ -3,30 +3,56 @@
 {% block title %}Nominés{% endblock %}
 
 {% block content %}
+    <style>
+        .caption {text-align: center}
+    </style>
+
     <div class="page-header">
-        <h1>Les candidats pour l'honneur: ...</h1>
+        {% if title == 'Nominés'%}
+            <h1>Nominés de cette cérémonie</h1>
+        {% else %}
+            <h1>Les candidats pour l'honneur: ...</h1>
+        {% endif %}
+
     </div>
+    <div class="row">
+        {% for nomine in nomines%}
 
-    {% for nomine in nomines%}
-
-        <div class="row">
-            <div class="col-xs-6 col-md-3">
-                <a href="{{ path('public_nomine_detail', {'id': nomine.id })}}" class="thumbnail">
-                    <img src="{{ app.request.basepath }}/../images/{{nomine.fileName}}" width="100%">
-                </a>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="{{ app.request.basepath }}/../images/{{nomine.fileName}}" alt="...">
+                    <div class="caption">
+                        <h3 style="color:black">{{nomine.nom}}</h3>
+                        <p><strong>Catégorie: </strong>{{nomine.categorie.libelle}}</p>
+                        <p>
+                            <a href="#" class="btn btn-primary disabled" role="button">Voter</a> 
+                            <a href="{{ path('public_nomine_detail', {'id': nomine.id })}}" class="btn btn-default" role="button">Detail</a>
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-xs-6 col-md-3">
-                <a href="{{ path('public_nomine_detail', {'id': nomine.id })}}">
-                    <h2 style="color:black"> {{nomine.nom}} </h2>
-                </a>
-                <p > {{nomine.descriptif}} </p>
-            </div>
 
-            <div class="col-xs-6 col-md-3" style="margin-top: 50px">
-                <button class="btn btn-primary center-block" disabled="disabled">Voter</button>
-            </div>
-        </div>
-        <hr class='divider'>
-    {% endfor %}
+
+            {# <div class="row">
+                 <div class="col-xs-6 col-md-3">
+                     <a href="{{ path('public_nomine_detail', {'id': nomine.id })}}" class="thumbnail">
+                         <img src="{{ app.request.basepath }}/../images/{{nomine.fileName}}" width="100%">
+                     </a>
+                 </div>
+     
+                 <div class="col-xs-6 col-md-3">
+                     <a href="{{ path('public_nomine_detail', {'id': nomine.id })}}">
+                         <h2 style="color:black"> {{nomine.nom}} </h2>
+                     </a>
+                     <p > {{nomine.descriptif}} </p>
+                 </div>
+     
+                 <div class="col-xs-6 col-md-3" style="margin-top: 50px">
+                     <button class="btn btn-primary center-block" disabled="disabled">Voter</button>
+                 </div>
+             </div>
+             <hr class='divider'>#}
+        {% endfor %}
+    </div>
 {% endblock %}

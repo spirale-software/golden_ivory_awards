@@ -17,12 +17,13 @@ class UserDAO extends DAO implements UserProviderInterface {
     protected function buildDomainObject($row) {
         $user = new \G_I_A\Domain\User();
 
-        $user($row['id']);
+        $user->setId($row['user_id']);
         $user->setEmail($row['email']);
         $user->setPwd($row['pwd']);
         $user->setPrenom($row['prenom']);
         $user->setSalt($row['salt']);
         $user->setRole($row['role']);
+        
         return $user;
     }
 
@@ -34,12 +35,10 @@ class UserDAO extends DAO implements UserProviderInterface {
      * @throws UsernameNotFoundException
      */
     public function loadUserByUsername($username) {
-        echo $username;
-        $username = 'admin@admin.com';
+         //$username = 'admin';
         $sql = "SELECT * FROM t_user WHERE email = ?";
 
         $row = $this->getDb()->fetchAssoc($sql, array($username));
-
         if ($row) {
             return $this->buildDomainObject($row);
         } else {
@@ -51,7 +50,6 @@ class UserDAO extends DAO implements UserProviderInterface {
      * {@inheritDoc}
      */
     public function supportsClass($class) {
-
         return 'G_I_A\Domain\User' === $class;
     }
 
@@ -63,10 +61,10 @@ class UserDAO extends DAO implements UserProviderInterface {
         $class = get_class($user);
 
         if (!$this->supportsClass($class)) {
-            echo $class;
+            
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $class));
         }
-        return $this->loadUserByUsername($user->getUsername());
+        
+        return $this->loadUserByUsername($user->getEmail());
     }
-
 }

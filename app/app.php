@@ -23,7 +23,7 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider());
 
-/*$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
         'secured' => array(
             'pattern' => '^/admin/',
@@ -39,7 +39,7 @@ $app->register(new Silex\Provider\TranslationServiceProvider());
     ),
     'security.role_hierarchy' => array('ROLE_ADMIN' => array('ROLE_USER')),
     'security.access_rule' => array(array('^/admin', 'ROLE_ADMIN'))
-));*/
+));
 
 
 // Register services

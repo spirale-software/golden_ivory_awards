@@ -1,6 +1,4 @@
-<?php
-
-namespace G_I_A\Controller;
+<?php namespace G_I_A\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,13 +109,13 @@ class AdminController {
         $nomines = $app['dao.nomine']->find_all_nomine();
         //$categories = $app['dao.categorie']->find_all();
 
-        /*foreach ($nomines as $nomine) {
+        /* foreach ($nomines as $nomine) {
 
-            $libelle_categorie = $this->find_libelle_by_ID(
-                    $categories, $nomine->getCategorieID());
+          $libelle_categorie = $this->find_libelle_by_ID(
+          $categories, $nomine->getCategorieID());
 
-            $nomine->setLibelleCategorie($libelle_categorie);
-        }*/
+          $nomine->setLibelleCategorie($libelle_categorie);
+          } */
 
         return $app['twig']->render('admin_nomine_all.html.twig', array(
                     'nomines' => $nomines,
@@ -160,26 +158,26 @@ class AdminController {
 
         $old_fileName = $nomine->getFileName();
         $nomine->setFileName(NULL);
-     
+
         $nomine_form = $app['form.factory']->create(
                 new \G_I_A\Form\Type\NomineType(), $nomine);
         $nomine_form->handleRequest($request);
 
         if ($nomine_form->isSubmitted() && $nomine_form->isValid()) {
-            
+
             if (is_null($nomine->getFileName())) {
                 $nomine->setFileName($old_fileName);
-            } else {              
+            } else {
                 $new_fileName = $this->savePhoto($nomine);
                 $nomine->setFileName($new_fileName);
-                
+
                 // Suppression de l'ancienne photo
-                $fileName = __DIR__ . '/../../images/'.$old_fileName;
+                $fileName = __DIR__ . '/../../images/' . $old_fileName;
                 unlink($fileName);
             }
 
             $app['dao.nomine']->edit($nomine);
-            
+
             $app['session']->getFlashBag()->add(
                     'success', 'Le nominé a été bien modifié');
         }
@@ -207,11 +205,11 @@ class AdminController {
         $nomine_form->handleRequest($request);
 
         if ($nomine_form->isSubmitted() && $nomine_form->isValid()) {
-            
+
             // Enregistrer la photo du nomine.
             $fileName = $this->savePhoto($nomine);
             $nomine->setFileName($fileName);
- 
+
             $app['dao.nomine']->save($nomine);
 
             $app['session']->getFlashBag()->add(
@@ -305,7 +303,6 @@ class AdminController {
      */
     public function add_categorie_action(Application $app, Request $request) {
 
-
         $categorie = new \G_I_A\Domain\Categorie();
         $categorie_form = $app['form.factory']->create(
                 new \G_I_A\Form\Type\CategorieType, $categorie);
@@ -330,39 +327,12 @@ class AdminController {
      * @return type
      */
     public function login_action(Application $app, Request $request) {
-        
-        $token = $app['security.token_storage']->getToken();
-        
-        if($token == NULL) {
-            echo 'login_action';
-        }
-            
-        
+
         return $app['twig']->render('login_form.html.twig', array(
                     'error' => $app['security.last_error']($request),
                     'last_username' =>
                     $app['session']->get('_security.last_username'),
         ));
-    }
-
-    /**
-     * 
-     * @param array $categories
-     * @param int $id.
-     * 
-     * @return string libelle, according to the $id.
-     */
-    private function find_libelle_by_ID($categories, $id) {
-
-        foreach ($categories as $categorie) {
-
-            if ($categorie->getID() == $id) {
-                $libelle = $categorie->getLibelle();
-                break;
-            }
-        }
-
-        return $libelle;
     }
 
     /**
@@ -380,6 +350,5 @@ class AdminController {
 
         return $fileName;
     }
-
 
 }
