@@ -34,6 +34,13 @@ class Actualite {
      */
     private $date;
     
+    /**
+     * image associée à cette actualite.
+     *
+     * @var string
+     */
+    private $fileName;
+    
     function getId() {
         return $this->actualite_id;
     }
@@ -64,6 +71,14 @@ class Actualite {
 
     function setDate(Date $date) {
         $this->date = $date;
+    }
+    
+    function getFileName() {
+        return $this->fileName;
+    }
+
+    function setFileName($fileName) {
+        $this->fileName = $fileName;
     }
 }
 

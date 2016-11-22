@@ -25,6 +25,10 @@ class ActualiteDAO extends DAO {
     }
     
     public function save(\G_I_A\Domain\Actualite $actualite) {
+        
+        // Inser dans la BD la photo correspondante à cette actualite.
+        
+        
         $sql = "INSERT INTO t_actualite(titre, descriptif, date_creation) VALUES"
                 . "(?, ?, NOW())";
         $this->getDb()->executeQuery($sql, array($actualite->getTitre(), 

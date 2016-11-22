@@ -7,8 +7,8 @@ include_once __DIR__ . '/../form/type/categorieType.php';
 include_once __DIR__ . '/../form/type/ContactType.php';
 include_once __DIR__ . '/../domain/Contact.php';
 
-class HomeController {
-
+class HomeController {  
+    
     public function contact_action(Application $app, Request $request) {
 
         $contact = new \G_I_A\Domain\Contact();
@@ -80,20 +80,10 @@ class HomeController {
      */
     public function index_action(Application $app) {
 
-        /* $user = new \G_I_A\Domain\User();
-          $salt = uniqid();
-          $user->setSalt($salt);
-
-          $encoder = $app['security.encoder_factory']->getEncoder($user);
-          $password = $encoder->encodePassword('admin', $user->getSalt());
-
-          //echo 'pwd:'.$password;
-          //echo 'salt: '.$salt;
-
-          $p = '6R70Hwd8DyDXHEg2PQ2kKunJBx08hy7KCDSx58RHuiVFR7UgrzOtnGXNVyKoi/8oD3VcLSQ/dVZbViT7Xldv5A==';
-          $s= '582ea561ea777'; */
-
-        return $app['twig']->render('index.html.twig');
+        $actualites = $app['dao.actualite']->find_all();
+        
+        return $app['twig']->render('index.html.twig', array(
+            '$actualites' => $actualites));
     }
 
     /**

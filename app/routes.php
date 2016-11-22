@@ -86,6 +86,16 @@ $app->match('/admin/categorie/edit/{id}',
         'G_I_A\Controller\AdminController::edit_categorie_action')
         ->bind('categorie_edit');
 
+/*  Add a new actualite */
+$app->match('/admin/actualite/add', 
+        'G_I_A\Controller\AdminController::add_actualite_action')
+        ->bind('actualite_add');
+
+/*  Give all actualites */
+$app->match('/admin/actualite/all', 
+        'G_I_A\Controller\AdminController::all_actualite_action')
+        ->bind('all_actualites');
+
             /****************** Login && Contact && Mail *******************/
 /* login */
 $app->match('/login', 

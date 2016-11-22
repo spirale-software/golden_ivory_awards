@@ -29,7 +29,7 @@
                     <li role="presentation"><a href="#"><span class="glyphicon glyphicon-user"></span> Administratrice</a></li>
                     <li role="presentation"><a href="{{ path('admin_logout') }}">Se déconnecter</a></li>
                 </ul>
-                
+
             </div><!-- /.container -->
         </nav>
 
@@ -76,6 +76,15 @@
                         </li>
                         <li role="presentation" class="{% if active == 6 %}active{%endif%}">
                             <a href="{{ path('all_honneurs')}}">Tous les Honneurs</a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-pills nav-stacked"> Actualite
+                        <li role="presentation" class="{% if active == 7 %}active{%endif%}">
+                            <a hre  href="{{ path('actualite_add')}}">Nouvel actualite</a>
+                        </li>
+                        <li role="presentation" class="{% if active == 8 %}active{%endif%}">
+                            <a href="{{ path('all_actualites')}}">Toutes les actualites</a>
                         </li>
                     </ul>
                 </div>

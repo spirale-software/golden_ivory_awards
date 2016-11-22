@@ -7,6 +7,7 @@ include_once __DIR__.'/../src/dao/NomineDAO.php';
 include_once __DIR__.'/../src/dao/UserDAO.php';
 include_once __DIR__.'/../src/dao/HonneurDAO.php';
 include_once __DIR__.'/../src/dao/ImageDAO.php';
+include_once __DIR__.'/../src/dao/ActualiteDAO.php';
 
 // Register global error and exception handlers
 ErrorHandler::register();
@@ -57,6 +58,9 @@ return new G_I_A\DAO\HonneurDAO($app['db']);
 });  
 $app['dao.image'] = $app->share(function ($app) {
 return new G_I_A\DAO\ImageDAO($app['db']);
+});  
+$app['dao.actualite'] = $app->share(function ($app) {
+return new G_I_A\DAO\ActualiteDAO($app['db']);
 });  
 
 //Globals variables

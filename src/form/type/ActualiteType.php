@@ -2,6 +2,7 @@
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 include_once __DIR__ . '/../../domain/Actualite.php';
 
@@ -11,6 +12,7 @@ class ActualiteType extends AbstractType {
 
         $builder
                 ->add('titre', 'text')
-                ->add('descriptif', 'textarea');
+                ->add('descriptif', 'textarea')
+                ->add('fileName', FileType::class, array('required' => false));
     }
 }

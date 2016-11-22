@@ -1,11 +1,14 @@
-<?php namespace G_I_A\Controller;
+<?php
+
+namespace G_I_A\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
 include_once __DIR__ . '/../form/type/categorieType.php';
 include_once __DIR__ . '/../form/type/HonneurType.php';
-include_once __DIR__ . '/../form/type/nomineType.php';
+include_once __DIR__ . '/../form/type/NomineType.php';
+include_once __DIR__ . '/../form/type/ActualiteType.php';
 include_once __DIR__ . '/../domain/Nomine.php';
 include_once __DIR__ . '/../domain/Honneur.php';
 
@@ -66,6 +69,45 @@ class AdminController {
                     'honneurs' => $honneurs,
                     'title' => 'Honneurs',
                     'active' => 6));
+    }
+
+    public function add_actualite_action(Application $app, Request $request) {
+
+        $actualite = new \G_I_A\Domain\Actualite();
+        $actualite_form = $app['form.factory']->create(
+                new \G_I_A\Form\Type\ActualiteType(), $actualite);
+
+        $actualite_form->handleRequest($request);
+
+        if ($actualite_form->isSubmitted() && $actualite_form->isValid()) {
+            
+            /*Enregistrer la photo dans le fichier 'image'*/
+            $fileName = $this->savePhoto($actualite);
+            
+            $actualite->setFileName($fileName);
+            
+            $app['dao.actualite']->save($actualite);
+
+            $app['session']->getFlashBag()->add(
+                    'success', 'L\'article a été bien enregistré');
+        }
+
+        return $app['twig']->render('admin_actualite_form.html.twig', array(
+                    'actualite_form' => $actualite_form->createView(),
+                    'title' => 'Nouvelle actualite',
+                    'active' => 7));
+    }
+
+    /* A voir si c'est vraiment necessaire    */
+
+    public function all_actualite_action(Application $app, Request $request) {
+
+        $actualites = $app['dao.actualite']->find_all();
+
+        return $app['twig']->render('admin_actualite.html.twig', array(
+                    'actualites' => $actualites,
+                    'title' => 'Toutes les actualite',
+                    'active' => 8));
     }
 
     /**
